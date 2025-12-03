@@ -1,71 +1,206 @@
+#!/usr/bin/env python3
+"""
+Streaming preprocess: TSV/CSV edge list → edges.parquet + node_map.json
+
+Fixes:
+- No more double file opening → eliminates +1 edge / +2 nodes bug
+- Single pass over input file
+- Robust header detection
+- Handles comma-separated or whitespace-separated files
+- Skips comments (#) and empty lines
+- Ignores self-loops
+- Memory efficient (batched Parquet writing)
+"""
+
 import os
 import json
 import yaml
-import pandas as pd
-import pyarrow.parquet as pq
 import pyarrow as pa
+import pyarrow.parquet as pq
 
-# Load config
+# ---------- config ----------
 with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
-INPUT_FILE = config["input_tsv"]        # can be .tsv, .csv, .txt — any text edge list
+INPUT_FILE = config["input_tsv"]
 OUTPUT_DIR = config["output_dir"]
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 EDGES_PARQUET = os.path.join(OUTPUT_DIR, "edges.parquet")
 NODE_MAP_JSON = os.path.join(OUTPUT_DIR, "node_map.json")
+TMP_EDGES = os.path.join(OUTPUT_DIR, "_edges.tmp")  # temporary numeric edge list
 
-print("\n# 1_preprocess.py: Converting undirected edge list → parquet + node mapping")
+print("\n# 1_preprocess: streaming edge list → parquet + node mapping")
 
-# === AUTO-DETECT: does the file have a header? ===
-# Try reading first row to check if it's numeric
-try:
-    first_row = pd.read_csv(INPUT_FILE, nrows=1, header=None)
-    is_header = not (pd.to_numeric(first_row.iloc[0], errors='coerce').notnull().all())
-except:
-    is_header = True  # fallback
+# ---------- Robust header detection ----------
+def looks_like_header(tokens):
+    """Return True if the token pair looks like a header row."""
+    if len(tokens) < 2:
+        return False
 
-header_param = 0 if is_header else None
+    common_headers = {
+        "source", "target", "u", "v", "node1", "node2",
+        "from", "to", "src", "dst", "id1", "id2", "head", "tail"
+    }
 
-# === READ EDGE LIST ===
-# Works for:
-# - CSV with header ("source,target" or "u,v")
-# - CSV without header
-# - TSV (tab or space separated)
-df = pd.read_csv(
-    INPUT_FILE,
-    sep=None,              # auto-detect separator (comma, tab, space)
-    engine='python',
-    header=header_param,
-    names=['u', 'v'],
-    dtype=str,
-    comment='#',           # skip comment lines
-    skip_blank_lines=True
-)
+    # If either token is a known header keyword → definitely header
+    if any(t.lower() in common_headers for t in tokens):
+        return True
 
-# Drop any accidental self-loops or invalid rows
-df = df[df['u'] != df['v']].dropna()
+    # If both tokens are purely numeric (or negative integers) → data, not header
+    both_numeric = all(
+        t.strip().replace("-", "").isdigit() and t.strip() != ""
+        for t in tokens
+    )
+    if both_numeric:
+        return False
 
-print(f"   Loaded {len(df):,} undirected edges")
+    # If any token contains letters → likely header (node IDs are usually numeric or UUIDs)
+    if any(any(c.isalpha() for c in t) for t in tokens):
+        return True
 
-# === MAP NODES TO DENSE 0..N-1 IDs ===
-all_nodes = sorted(set(df['u']) | set(df['v']))
-node_to_id = {node: i for i, node in enumerate(all_nodes)}
-id_to_node = {i: str(node) for node, i in node_to_id.items()}  # keep as string
+    return False
 
-df['source'] = df['u'].map(node_to_id).astype('int32')
-df['target'] = df['v'].map(node_to_id).astype('int32')
-df = df[['source', 'target']]
 
-# Optional: remove duplicate edges (u,v) and (v,u) if input had both
-df = df.drop_duplicates()
+# ---------- Single streaming pass ----------
+node_to_id = {}
+id_to_node = []
+next_id = 0
+edges_processed = 0
+skipped_header = False
 
-# === SAVE ===
-pq.write_table(pa.Table.from_pandas(df), EDGES_PARQUET)
-with open(NODE_MAP_JSON, 'w') as f:
-    json.dump(id_to_node, f, indent=2)
+# Open temp file for numeric edge pairs and input once
+with open(INPUT_FILE, "r", encoding="utf-8", errors="replace") as fin, \
+     open(TMP_EDGES, "w", encoding="utf-8") as tmp_f:
 
-print(f"→ {len(df):,} final undirected edges → {EDGES_PARQUET}")
-print(f"→ {len(id_to_node):,} nodes (dense IDs 0..{len(id_to_node)-1}) → {NODE_MAP_JSON}")
-print("Preprocessing complete.\n")
+    while True:
+        pos = fin.tell()
+        line = fin.readline()
+        if not line:  # EOF
+            break
+
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+
+        # Split: prefer comma, fallback to whitespace
+        if "," in line:
+            parts = [p.strip() for p in stripped.split(",") if p.strip()]
+        else:
+            parts = stripped.split()
+
+        if len(parts) < 2:
+            continue
+
+        tokens = parts[:2]
+
+        # Header detection on first valid line
+        if not skipped_header and looks_like_header(tokens):
+            skipped_header = True
+            # Header consumed → continue to next line
+            continue
+        else:
+            # Not a header → if we hadn't decided yet, rewind this line
+            if not skipped_header:
+                fin.seek(pos)
+            break  # exit header detection loop
+
+    # Now process all remaining lines (header already skipped if present)
+    for line in fin:
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+
+        if "," in line:
+            parts = [p.strip() for p in stripped.split(",") if p.strip()]
+        else:
+            parts = stripped.split()
+
+        if len(parts) < 2:
+            continue
+
+        u_raw, v_raw = parts[0], parts[1]
+
+        # Extra safety: skip any line if it looks exactly like a header (very rare)
+        if u_raw.lower() in {"source", "target", "u", "v", "from", "to"} and \
+           v_raw.lower() in {"source", "target", "u", "v", "from", "to"}:
+            continue
+
+        # Skip self-loops
+        if u_raw == v_raw:
+            continue
+
+        # Assign incremental IDs
+        for node in (u_raw, v_raw):
+            if node not in node_to_id:
+                node_to_id[node] = next_id
+                id_to_node.append(node)
+                next_id += 1
+
+        u_id = node_to_id[u_raw]
+        v_id = node_to_id[v_raw]
+
+        tmp_f.write(f"{u_id},{v_id}\n")
+        edges_processed += 1
+
+
+print(f"  Pass 1 complete: {edges_processed:,} edges processed, {next_id:,} unique nodes found (header skipped={skipped_header})")
+
+# ---------- Save node mapping ----------
+node_map = {str(i): node for i, node in enumerate(id_to_node)}
+with open(NODE_MAP_JSON, "w", encoding="utf-8") as f:
+    json.dump(node_map, f, indent=2, ensure_ascii=False)
+print(f"  Saved node map → {NODE_MAP_JSON}")
+
+# ---------- Pass 2: Write Parquet in batches ----------
+schema = pa.schema([
+    pa.field("source", pa.int32()),
+    pa.field("target", pa.int32())
+])
+
+writer = pq.ParquetWriter(EDGES_PARQUET, schema, compression="SNAPPY")
+
+batch_size = 500_000
+src_batch = []
+tgt_batch = []
+edges_written = 0
+
+with open(TMP_EDGES, "r", encoding="utf-8") as f:
+    for line in f:
+        s_str, t_str = line.strip().split(",")
+        src_batch.append(int(s_str))
+        tgt_batch.append(int(t_str))
+
+        if len(src_batch) >= batch_size:
+            table = pa.Table.from_arrays(
+                [pa.array(src_batch, type=pa.int32()),
+                 pa.array(tgt_batch, type=pa.int32())],
+                schema=schema
+            )
+            writer.write_table(table)
+            edges_written += len(src_batch)
+            src_batch.clear()
+            tgt_batch.clear()
+
+    # Final batch
+    if src_batch:
+        table = pa.Table.from_arrays(
+            [pa.array(src_batch, type=pa.int32()),
+             pa.array(tgt_batch, type=pa.int32())],
+            schema=schema
+        )
+        writer.write_table(table)
+        edges_written += len(src_batch)
+
+writer.close()
+os.remove(TMP_EDGES)  # clean up
+
+print(f"  Saved edges parquet → {EDGES_PARQUET} (rows written: {edges_written:,})")
+
+# ---------- Summary ----------
+print("\nSummary:")
+print(f"  header_detected  = {skipped_header}")
+print(f"  edges_processed  = {edges_processed:,}")
+print(f"  edges_written    = {edges_written:,}")
+print(f"  nodes_mapped     = {len(id_to_node):,}")
+print("\nPreprocessing finished successfully!\n")
