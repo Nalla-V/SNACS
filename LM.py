@@ -1,270 +1,282 @@
+#!/usr/bin/env python3
+"""
+landmark_select_sampled.py
+
+Supported strategies:
+ - random
+ - degree
+ - degree_h
+ - closeness
+ - closeness_h
+
+closeness_sample uses sampling (default sample_size=200).
+Outputs:
+ - landmarks.json
+ - distances.parquet
+ - timing_{method}.json
+"""
 import os
 import time
-import yaml
 import json
-import pandas as pd
+import yaml
+import random
 from collections import deque
 import pyarrow.parquet as pq
 import pyarrow as pa
+import pandas as pd
 
 # --------------------------
-# Load config (not timed)
+# Config
 # --------------------------
 with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
-OUTPUT_DIR  = config["output_dir"]
-K           = config["k"]
-H_MIN       = config.get("h_min", 2)
-LM_SEL      = config.get("lm_sel", "degree").lower()
+OUTPUT_DIR = config["output_dir"]
+K = int(config["k"])
+H_MIN = int(config.get("h_min", 2))
+LM_SEL = config.get("lm_sel", "degree").lower()
+LM = config.get("k", 4)
+CLOSENESS_SAMPLES = int(config.get("closeness_samples", 200))
+RANDOM_SEED = int(config.get("random_seed", 42))
 
-EDGES_PARQUET     = os.path.join(OUTPUT_DIR, "edges.parquet")
+EDGES_PARQUET = os.path.join(OUTPUT_DIR, "edges.parquet")
+NODE_MAP_JSON = os.path.join(OUTPUT_DIR, "node_map.json")
+LANDMARKS_JSON = os.path.join(OUTPUT_DIR, "landmarks.json")
 DISTANCES_PARQUET = os.path.join(OUTPUT_DIR, "distances.parquet")
-LANDMARKS_JSON    = os.path.join(OUTPUT_DIR, "landmarks.json")
+
+# dynamic timing file
+TIMING_JSON = os.path.join(OUTPUT_DIR, f"{LM}_timing_{LM_SEL}.json")
+
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+print(f"\n# Landmark selection (sampled) starting — method={LM_SEL}, K={K}, h_min={H_MIN}")
+print(f"Output → {OUTPUT_DIR}")
 
 # --------------------------
-# DYNAMIC TIMING FILENAME
+# Load node map
 # --------------------------
-if LM_SEL in ["degree_h", "closeness_h"]:
-    # Replace '_h' with actual h_min value
-    base_name = LM_SEL.replace("_h", "")
-    TIMING_JSON = os.path.join(OUTPUT_DIR, f"timing_{base_name}_{H_MIN}.json")
-else:
-    TIMING_JSON = os.path.join(OUTPUT_DIR, f"timing_{LM_SEL}.json")
-
-print(f"\n# OLD STRATEGY RUN: lm_sel={LM_SEL}, k={K}, h_min={H_MIN}")
+with open(NODE_MAP_JSON, "r") as f:
+    id_to_label = json.load(f)
+n = len(id_to_label)
+print(f"Loaded node_map.json: {n} nodes (0..{n-1})")
 
 # --------------------------
-# Load graph (not timed)
+# Build adjacency list (streaming parquet)
 # --------------------------
-df_edges = pd.read_parquet(EDGES_PARQUET)
+t0 = time.time()
+pf = pq.ParquetFile(EDGES_PARQUET)
 
-all_nodes = sorted(set(df_edges["source"]) | set(df_edges["target"]))
-n = len(all_nodes)
+adj = [[] for _ in range(n)]
+for batch in pf.iter_batches(batch_size=1_000_000, columns=["source", "target"]):
+    d = batch.to_pydict()
+    srcs = d["source"]
+    tgts = d["target"]
+    for u, v in zip(srcs, tgts):
+        u = int(u); v = int(v)
+        adj[u].append(v)
+        adj[v].append(u)
 
-# adjacency list
-adj = {i: [] for i in range(n)}
-for _, row in df_edges.iterrows():
-    u, v = int(row["source"]), int(row["target"])
-    adj[u].append(v)
-    adj[v].append(u)
-
-print(f"  Loaded graph: {n} nodes, {len(df_edges)} edges")
+t1 = time.time()
 
 # --------------------------
-# Timing containers
+# BFS helpers
 # --------------------------
-T_LM_old = 0
-T_precompute_old = 0
-T_BFS_list = []
-
-# ==========================================================
-#                 LANDMARK SELECTION TIMING
-# ==========================================================
-t_lm_start = time.time()
-
-landmarks = []
-
-if LM_SEL == "random":
-    import random
-    landmarks = random.sample(range(n), K)
-
-elif LM_SEL == "degree":
-    degrees = pd.concat([
-        df_edges['source'].value_counts(),
-        df_edges['target'].value_counts()
-    ]).groupby(level=0).sum()
-    landmarks = degrees.nlargest(K).index.astype(int).tolist()
-
-elif LM_SEL == "degree_h":
-    degrees = pd.concat([
-        df_edges['source'].value_counts(),
-        df_edges['target'].value_counts()
-    ]).groupby(level=0).sum()
-
-    candidates = degrees.index.astype(int).tolist()
-    candidates.sort(key=lambda x: degrees[x], reverse=True)
-
-    selected = []
-    forbidden = set()
-
-    def nodes_within(start, h):
-        dist = [-1] * n
-        dist[start] = 0
-        q = deque([start])
-        result = {start}
-        while q:
-            u = q.popleft()
-            if dist[u] >= h:
-                continue
-            for v in adj[u]:
-                if dist[v] == -1:
-                    dist[v] = dist[u] + 1
-                    result.add(v)
-                    q.append(v)
-        return result
-
-    for node in candidates:
-        if node in forbidden:
-            continue
-        selected.append(node)
-        if len(selected) == K:
-            break
-        forbidden.update(nodes_within(node, H_MIN))
-
-    landmarks = selected
-
-elif LM_SEL == "closeness":
-    avg_dist = {}
-    for node in range(n):
-        dist = [-1] * n
-        dist[node] = 0
-        q = deque([node])
-        dist_sum = 0
-        reachable = 0
-
-        while q:
-            u = q.popleft()
-            dist_sum += dist[u]
-            reachable += 1
-            for v in adj[u]:
-                if dist[v] == -1:
-                    dist[v] = dist[u] + 1
-                    q.append(v)
-
-        avg_dist[node] = dist_sum / max(1, (reachable - 1))
-
-    landmarks = sorted(avg_dist, key=avg_dist.get)[:K]
-
-elif LM_SEL == "closeness_h":
-    print("  Computing closeness centrality with hop separation (closeness_h)...")
-
-    # Step 1: Compute farness for every node
-    farness = {}
-    for node in range(n):
-        if node % 1000 == 0 or node == n-1:
-            print(f"    closeness BFS {node+1}/{n}")
-        dist = [-1] * n
-        dist[node] = 0
-        q = deque([node])
-        total_dist = 0
-        reachable = 0
-        while q:
-            u = q.popleft()
-            total_dist += dist[u]
-            reachable += 1
-            for v in adj[u]:
-                if dist[v] == -1:
-                    dist[v] = dist[u] + 1
-                    q.append(v)
-        farness[node] = total_dist if reachable > 1 else float('inf')
-
-    # Step 2: Sort by farness (lower = better closeness)
-    candidates = sorted(farness.items(), key=lambda x: x[1])
-
-    selected = []
-    forbidden = set()
-
-    def nodes_within(start, h):
-        dist = [-1] * n
-        dist[start] = 0
-        q = deque([start])
-        result = {start}
-        while q:
-            u = q.popleft()
-            if dist[u] >= h:
-                continue
-            for v in adj[u]:
-                if dist[v] == -1:
-                    dist[v] = dist[u] + 1
-                    if dist[v] <= h:
-                        result.add(v)
-                    q.append(v)
-        return result
-
-    for node, f in candidates:
-        if node in forbidden:
-            continue
-        selected.append(node)
-        if len(selected) == K:
-            break
-        forbidden.update(nodes_within(node, H_MIN))
-
-    landmarks = selected
-    print(f"  Selected closeness_h landmarks: {landmarks}")
-
-else:
-    raise ValueError(f"Unknown selection method: {LM_SEL}")
-
-t_lm_end = time.time()
-T_LM_old = t_lm_end - t_lm_start
-
-print(f"  Selected landmarks: {landmarks}")
-print(f"  T_LM_old = {T_LM_old:.6f} sec")
-
-# Save LM
-with open(LANDMARKS_JSON, "w") as f:
-    json.dump(landmarks, f)
-
-# ==========================================================
-#                 BFS PRECOMPUTATION TIMING
-# ==========================================================
-records = []
-
-t_pre_start = time.time()
-
-print("\n  Running BFS for selected landmarks...")
-
-for lm in landmarks:
-    t_bfs_start = time.time()
-
+def bfs_full(source):
     dist = [-1] * n
-    dist[lm] = 0
-    q = deque([lm])
-
+    q = deque([source])
+    dist[source] = 0
     while q:
         u = q.popleft()
         for v in adj[u]:
             if dist[v] == -1:
                 dist[v] = dist[u] + 1
                 q.append(v)
+    return dist
 
-    # store results
-    for v in range(n):
-        if dist[v] != -1:
-            records.append({"node": v, "landmark": lm, "distance": dist[v]})
+def nodes_within_hops(start, h):
+    if h <= 0:
+        return {start}
+    dist = [-1] * n
+    q = deque([start])
+    dist[start] = 0
+    res = {start}
+    while q:
+        u = q.popleft()
+        if dist[u] >= h: continue
+        for v in adj[u]:
+            if dist[v] == -1:
+                dist[v] = dist[u] + 1
+                if dist[v] <= h: res.add(v)
+                q.append(v)
+    return res
 
-    t_bfs_end = time.time()
-    bfs_time = t_bfs_end - t_bfs_start
-    T_BFS_list.append({"landmark": lm, "time": bfs_time})
+# --------------------------
+# Sampling pivots
+# --------------------------
+random.seed(RANDOM_SEED)
 
-    print(f"    LM {lm}: BFS = {bfs_time:.6f} sec")
+def sample_pivots(sample_size):
+    sample_size = min(sample_size, n)
+    return random.sample(range(n), sample_size)
 
-t_pre_end = time.time()
-T_precompute_old = t_pre_end - t_pre_start
+# --------------------------
+# TIMING starts for selection
+# --------------------------
+t_lm_start = time.time()
+landmarks = []
 
-# T_total = selection + BFS
-T_total_old = T_LM_old + T_precompute_old
+# ============================================================
+#  DEGREE STRATEGIES (UPDATED: STREAMING DEGREE COUNTER)
+# ============================================================
+def compute_degrees_streaming():
+    """Compute node degrees by streaming parquet batches."""
+    deg = [0] * n
+    pf = pq.ParquetFile(EDGES_PARQUET)
+    for batch in pf.iter_batches(batch_size=1_000_000, columns=["source", "target"]):
+        d = batch.to_pydict()
+        srcs = d["source"]; tgts = d["target"]
+        for u in srcs: deg[int(u)] += 1
+        for v in tgts: deg[int(v)] += 1
+    return deg
 
-# save distances
-df_out = pd.DataFrame(records)
+if LM_SEL == "random":
+    print("Selecting Random Landmarks ")
+    landmarks = random.sample(range(n), K)
+
+elif LM_SEL == "degree":
+    print("Computing degree ")
+    deg = compute_degrees_streaming()
+    landmarks = sorted(range(n), key=lambda x: deg[x], reverse=True)[:K]
+
+elif LM_SEL == "degree_h":
+    print("Computing degree for degree_h")
+    deg = compute_degrees_streaming()
+
+    candidates = sorted(range(n), key=lambda x: deg[x], reverse=True)
+    selected = []
+    forbidden = set()
+
+    for node in candidates:
+        if node in forbidden: continue
+        selected.append(node)
+        if len(selected) == K: break
+        if H_MIN > 0:
+            forbidden.update(nodes_within_hops(node, H_MIN))
+
+    landmarks = selected
+
+# ============================================================
+#  CLOSENESS (SAMPLED)
+# ============================================================
+elif LM_SEL == "closeness":
+    print("Computing closeness on Sample size ")
+    S = CLOSENESS_SAMPLES
+    pivots = sample_pivots(S)
+    farness = [0.0] * n
+    reach_counts = [0] * n
+
+    for p in pivots:
+        dist = bfs_full(p)
+        for v, d in enumerate(dist):
+            if d != -1:
+                farness[v] += d
+                reach_counts[v] += 1
+
+    import math
+    avg_farness = [
+        (farness[v] / reach_counts[v]) if reach_counts[v] > 0 else math.inf
+        for v in range(n)
+    ]
+
+    landmarks = sorted(range(n), key=lambda x: avg_farness[x])[:K]
+
+elif LM_SEL == "closeness_h":
+    print("Computing closeness on Sample size ")
+    S = CLOSENESS_SAMPLES
+    pivots = sample_pivots(S)
+    farness = [0.0] * n
+    reach_counts = [0] * n
+
+    for p in pivots:
+        dist = bfs_full(p)
+        for v, d in enumerate(dist):
+            if d != -1:
+                farness[v] += d
+                reach_counts[v] += 1
+
+    import math
+    avg_farness = [
+        (farness[v] / reach_counts[v]) if reach_counts[v] > 0 else math.inf
+        for v in range(n)
+    ]
+
+    candidates = sorted(range(n), key=lambda x: avg_farness[x])
+    selected = []
+    forbidden = set()
+
+    for node in candidates:
+        if node in forbidden: continue
+        selected.append(node)
+        if len(selected) == K: break
+        if H_MIN > 0:
+            forbidden.update(nodes_within_hops(node, H_MIN))
+
+    landmarks = selected
+
+else:
+    raise ValueError(f"Unknown lm_sel: {LM_SEL}")
+
+t_lm_end = time.time()
+T_LM = t_lm_end - t_lm_start
+
+print(f"\nSelected landmarks: {landmarks}")
+print(f"T_LM = {T_LM:.3f}s\n")
+
+# Save LM
+with open(LANDMARKS_JSON, "w") as f:
+    json.dump(landmarks, f, indent=2)
+
+# --------------------------
+# Precompute BFS from LMs
+# --------------------------
+print("Precomputing distance using BFS from selected landmarks to all other nodes")
+records_node = []
+records_lm = []
+records_dist = []
+T_pre = 0.0
+bfs_times = []
+
+for lm in landmarks:
+    t0 = time.time()
+    dist = bfs_full(lm)
+    t1 = time.time()
+
+    bfs_times.append({"landmark": lm, "time": t1 - t0})
+    T_pre += (t1 - t0)
+
+    for v, d in enumerate(dist):
+        if d != -1:
+            records_node.append(v)
+            records_lm.append(lm)
+            records_dist.append(d)
+
+print("\nWriting distances in distaances.parquet file")
+df_out = pd.DataFrame({
+    "node": records_node,
+    "landmark": records_lm,
+    "distance": records_dist
+}).astype({"node":"int32","landmark":"int32","distance":"int32"})
+
 pq.write_table(pa.Table.from_pandas(df_out), DISTANCES_PARQUET)
 
-print(f"\n  Saved embeddings → {DISTANCES_PARQUET}")
-
-# ==========================================================
-# Save timing JSON with dynamic name
-# ==========================================================
-timing_data = {
-    "T_LM_old": T_LM_old,
-    "T_precompute_old": T_precompute_old,
-    "T_total_old": T_total_old,
-    "T_BFS_each": T_BFS_list,
-    "landmarks": landmarks
-}
-
+# Save timing
 with open(TIMING_JSON, "w") as f:
-    json.dump(timing_data, f, indent=2)
+    json.dump({
+        "T_LM": T_LM,
+        "T_precompute": T_pre,
+        "T_total": T_LM + T_pre,
+        "bfs_times": bfs_times,
+        "landmarks": landmarks
+    }, f, indent=2)
 
-print(f"\n  T_total_old = {T_total_old:.6f} sec")
-print(f"  Timing saved → {TIMING_JSON}")
+print(f"Done — timings saved to {TIMING_JSON}")
