@@ -1,0 +1,13 @@
+# lm selection - random, degree, closeness, degree_h,  
+
+input_tsv: "medium.tsv"
+output_dir: "output"
+k: 2
+h_min: 1
+lm_sel: "degree_h"
+queries:
+- ['140', '439']
+- ['150', '223']
+- ['2740', '402']
+  
+ 
