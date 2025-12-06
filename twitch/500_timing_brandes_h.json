@@ -1,0 +1,3009 @@
+{
+  "T_LM_brandes": 228.78077864646912,
+  "T_precompute_brandes": 2006.6958091259003,
+  "T_total_brandes": 2235.4765877723694,
+  "bfs_times": [
+    {
+      "landmark": 4812,
+      "time": 3.1816349029541016,
+      "reachable": 168114
+    },
+    {
+      "landmark": 4480,
+      "time": 3.260214328765869,
+      "reachable": 168114
+    },
+    {
+      "landmark": 40714,
+      "time": 2.3526017665863037,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35538,
+      "time": 2.5520734786987305,
+      "reachable": 168114
+    },
+    {
+      "landmark": 41260,
+      "time": 2.7155721187591553,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5963,
+      "time": 2.368396282196045,
+      "reachable": 168114
+    },
+    {
+      "landmark": 4553,
+      "time": 2.9036612510681152,
+      "reachable": 168114
+    },
+    {
+      "landmark": 11468,
+      "time": 2.5886294841766357,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35996,
+      "time": 2.3103487491607666,
+      "reachable": 168114
+    },
+    {
+      "landmark": 36058,
+      "time": 2.935962200164795,
+      "reachable": 168114
+    },
+    {
+      "landmark": 25182,
+      "time": 2.21358323097229,
+      "reachable": 168114
+    },
+    {
+      "landmark": 10280,
+      "time": 2.605476140975952,
+      "reachable": 168114
+    },
+    {
+      "landmark": 27,
+      "time": 2.9883811473846436,
+      "reachable": 168114
+    },
+    {
+      "landmark": 8331,
+      "time": 2.2646379470825195,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63251,
+      "time": 2.8857340812683105,
+      "reachable": 168114
+    },
+    {
+      "landmark": 61104,
+      "time": 2.9016294479370117,
+      "reachable": 168114
+    },
+    {
+      "landmark": 76144,
+      "time": 2.8464882373809814,
+      "reachable": 168114
+    },
+    {
+      "landmark": 11388,
+      "time": 2.70656156539917,
+      "reachable": 168114
+    },
+    {
+      "landmark": 4474,
+      "time": 2.3968684673309326,
+      "reachable": 168114
+    },
+    {
+      "landmark": 10016,
+      "time": 2.5810444355010986,
+      "reachable": 168114
+    },
+    {
+      "landmark": 14703,
+      "time": 2.7152061462402344,
+      "reachable": 168114
+    },
+    {
+      "landmark": 4731,
+      "time": 2.5818591117858887,
+      "reachable": 168114
+    },
+    {
+      "landmark": 83509,
+      "time": 3.3534677028656006,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5911,
+      "time": 2.9863133430480957,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63420,
+      "time": 3.1778621673583984,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5032,
+      "time": 2.89562726020813,
+      "reachable": 168114
+    },
+    {
+      "landmark": 39329,
+      "time": 2.6147172451019287,
+      "reachable": 168114
+    },
+    {
+      "landmark": 61012,
+      "time": 2.8131723403930664,
+      "reachable": 168114
+    },
+    {
+      "landmark": 4906,
+      "time": 3.645543336868286,
+      "reachable": 168114
+    },
+    {
+      "landmark": 28583,
+      "time": 2.6961669921875,
+      "reachable": 168114
+    },
+    {
+      "landmark": 4618,
+      "time": 2.5959815979003906,
+      "reachable": 168114
+    },
+    {
+      "landmark": 39728,
+      "time": 2.9222476482391357,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35275,
+      "time": 2.395193338394165,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35160,
+      "time": 2.8799965381622314,
+      "reachable": 168114
+    },
+    {
+      "landmark": 83523,
+      "time": 3.464872121810913,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35971,
+      "time": 3.8052337169647217,
+      "reachable": 168114
+    },
+    {
+      "landmark": 19,
+      "time": 4.167435646057129,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5140,
+      "time": 2.747574806213379,
+      "reachable": 168114
+    },
+    {
+      "landmark": 129789,
+      "time": 3.7358522415161133,
+      "reachable": 168114
+    },
+    {
+      "landmark": 77072,
+      "time": 2.9329023361206055,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5160,
+      "time": 2.796863317489624,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35935,
+      "time": 3.1417629718780518,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5079,
+      "time": 2.8479714393615723,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63315,
+      "time": 3.223252773284912,
+      "reachable": 168114
+    },
+    {
+      "landmark": 94820,
+      "time": 3.8070602416992188,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35889,
+      "time": 2.669229507446289,
+      "reachable": 168114
+    },
+    {
+      "landmark": 66054,
+      "time": 3.352266550064087,
+      "reachable": 168114
+    },
+    {
+      "landmark": 78730,
+      "time": 3.1398801803588867,
+      "reachable": 168114
+    },
+    {
+      "landmark": 87162,
+      "time": 2.960886001586914,
+      "reachable": 168114
+    },
+    {
+      "landmark": 113735,
+      "time": 3.639193058013916,
+      "reachable": 168114
+    },
+    {
+      "landmark": 11476,
+      "time": 2.8576841354370117,
+      "reachable": 168114
+    },
+    {
+      "landmark": 14713,
+      "time": 2.598245143890381,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35974,
+      "time": 2.7034239768981934,
+      "reachable": 168114
+    },
+    {
+      "landmark": 39768,
+      "time": 2.4777326583862305,
+      "reachable": 168114
+    },
+    {
+      "landmark": 39279,
+      "time": 3.003100872039795,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35734,
+      "time": 2.7985000610351562,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35823,
+      "time": 2.6735751628875732,
+      "reachable": 168114
+    },
+    {
+      "landmark": 76826,
+      "time": 3.0600180625915527,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35640,
+      "time": 2.9537806510925293,
+      "reachable": 168114
+    },
+    {
+      "landmark": 130364,
+      "time": 3.3748769760131836,
+      "reachable": 168114
+    },
+    {
+      "landmark": 76769,
+      "time": 3.195719003677368,
+      "reachable": 168114
+    },
+    {
+      "landmark": 39334,
+      "time": 2.7895114421844482,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63383,
+      "time": 2.8726649284362793,
+      "reachable": 168114
+    },
+    {
+      "landmark": 62840,
+      "time": 2.7373905181884766,
+      "reachable": 168114
+    },
+    {
+      "landmark": 129964,
+      "time": 2.6675658226013184,
+      "reachable": 168114
+    },
+    {
+      "landmark": 16,
+      "time": 3.3728771209716797,
+      "reachable": 168114
+    },
+    {
+      "landmark": 114248,
+      "time": 2.784364700317383,
+      "reachable": 168114
+    },
+    {
+      "landmark": 71282,
+      "time": 3.422034978866577,
+      "reachable": 168114
+    },
+    {
+      "landmark": 148934,
+      "time": 2.938565492630005,
+      "reachable": 168114
+    },
+    {
+      "landmark": 11483,
+      "time": 2.4883370399475098,
+      "reachable": 168114
+    },
+    {
+      "landmark": 133153,
+      "time": 3.4021546840667725,
+      "reachable": 168114
+    },
+    {
+      "landmark": 41074,
+      "time": 2.7102231979370117,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5966,
+      "time": 2.70947527885437,
+      "reachable": 168114
+    },
+    {
+      "landmark": 36037,
+      "time": 2.971205711364746,
+      "reachable": 168114
+    },
+    {
+      "landmark": 135810,
+      "time": 3.008185625076294,
+      "reachable": 168114
+    },
+    {
+      "landmark": 116636,
+      "time": 3.1712117195129395,
+      "reachable": 168114
+    },
+    {
+      "landmark": 96288,
+      "time": 3.0683181285858154,
+      "reachable": 168114
+    },
+    {
+      "landmark": 50765,
+      "time": 2.6517252922058105,
+      "reachable": 168114
+    },
+    {
+      "landmark": 113025,
+      "time": 3.007828950881958,
+      "reachable": 168114
+    },
+    {
+      "landmark": 140565,
+      "time": 3.155351400375366,
+      "reachable": 168114
+    },
+    {
+      "landmark": 94798,
+      "time": 2.8631715774536133,
+      "reachable": 168114
+    },
+    {
+      "landmark": 3300,
+      "time": 3.2164559364318848,
+      "reachable": 168114
+    },
+    {
+      "landmark": 133321,
+      "time": 2.7228646278381348,
+      "reachable": 168114
+    },
+    {
+      "landmark": 143184,
+      "time": 3.031177282333374,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63377,
+      "time": 3.030470609664917,
+      "reachable": 168114
+    },
+    {
+      "landmark": 6683,
+      "time": 2.9091145992279053,
+      "reachable": 168114
+    },
+    {
+      "landmark": 68456,
+      "time": 3.331002950668335,
+      "reachable": 168114
+    },
+    {
+      "landmark": 61814,
+      "time": 2.8070874214172363,
+      "reachable": 168114
+    },
+    {
+      "landmark": 89922,
+      "time": 3.0978829860687256,
+      "reachable": 168114
+    },
+    {
+      "landmark": 79010,
+      "time": 3.5125937461853027,
+      "reachable": 168114
+    },
+    {
+      "landmark": 39394,
+      "time": 2.601508617401123,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35833,
+      "time": 3.178384780883789,
+      "reachable": 168114
+    },
+    {
+      "landmark": 93168,
+      "time": 3.0545735359191895,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63424,
+      "time": 2.6051948070526123,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5913,
+      "time": 2.9885032176971436,
+      "reachable": 168114
+    },
+    {
+      "landmark": 62955,
+      "time": 2.92008900642395,
+      "reachable": 168114
+    },
+    {
+      "landmark": 94141,
+      "time": 2.990699291229248,
+      "reachable": 168114
+    },
+    {
+      "landmark": 24906,
+      "time": 3.229660987854004,
+      "reachable": 168114
+    },
+    {
+      "landmark": 110175,
+      "time": 2.9215426445007324,
+      "reachable": 168114
+    },
+    {
+      "landmark": 111397,
+      "time": 2.8294730186462402,
+      "reachable": 168114
+    },
+    {
+      "landmark": 113732,
+      "time": 3.5018692016601562,
+      "reachable": 168114
+    },
+    {
+      "landmark": 117735,
+      "time": 2.8967018127441406,
+      "reachable": 168114
+    },
+    {
+      "landmark": 62709,
+      "time": 3.4706215858459473,
+      "reachable": 168114
+    },
+    {
+      "landmark": 56405,
+      "time": 2.61030912399292,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5559,
+      "time": 2.7002320289611816,
+      "reachable": 168114
+    },
+    {
+      "landmark": 11940,
+      "time": 2.6510097980499268,
+      "reachable": 168114
+    },
+    {
+      "landmark": 76279,
+      "time": 2.5586845874786377,
+      "reachable": 168114
+    },
+    {
+      "landmark": 19425,
+      "time": 2.93792724609375,
+      "reachable": 168114
+    },
+    {
+      "landmark": 97539,
+      "time": 2.957104206085205,
+      "reachable": 168114
+    },
+    {
+      "landmark": 141932,
+      "time": 2.963801383972168,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5048,
+      "time": 3.1944751739501953,
+      "reachable": 168114
+    },
+    {
+      "landmark": 15204,
+      "time": 3.2511911392211914,
+      "reachable": 168114
+    },
+    {
+      "landmark": 94814,
+      "time": 3.4204578399658203,
+      "reachable": 168114
+    },
+    {
+      "landmark": 41264,
+      "time": 2.7765936851501465,
+      "reachable": 168114
+    },
+    {
+      "landmark": 39293,
+      "time": 2.538872241973877,
+      "reachable": 168114
+    },
+    {
+      "landmark": 61267,
+      "time": 3.377847909927368,
+      "reachable": 168114
+    },
+    {
+      "landmark": 109205,
+      "time": 3.2185420989990234,
+      "reachable": 168114
+    },
+    {
+      "landmark": 90882,
+      "time": 2.903609037399292,
+      "reachable": 168114
+    },
+    {
+      "landmark": 71269,
+      "time": 3.428118944168091,
+      "reachable": 168114
+    },
+    {
+      "landmark": 85905,
+      "time": 3.0231029987335205,
+      "reachable": 168114
+    },
+    {
+      "landmark": 93514,
+      "time": 3.3210513591766357,
+      "reachable": 168114
+    },
+    {
+      "landmark": 3445,
+      "time": 3.1613211631774902,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112658,
+      "time": 2.90600323677063,
+      "reachable": 168114
+    },
+    {
+      "landmark": 129786,
+      "time": 3.0981457233428955,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112699,
+      "time": 3.2152793407440186,
+      "reachable": 168114
+    },
+    {
+      "landmark": 62020,
+      "time": 2.5617833137512207,
+      "reachable": 168114
+    },
+    {
+      "landmark": 133155,
+      "time": 3.3253095149993896,
+      "reachable": 168114
+    },
+    {
+      "landmark": 147150,
+      "time": 2.647843599319458,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5889,
+      "time": 3.3994336128234863,
+      "reachable": 168114
+    },
+    {
+      "landmark": 88406,
+      "time": 3.259568214416504,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63316,
+      "time": 2.6778745651245117,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35960,
+      "time": 3.2741425037384033,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112858,
+      "time": 3.0478920936584473,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112413,
+      "time": 2.946539878845215,
+      "reachable": 168114
+    },
+    {
+      "landmark": 116700,
+      "time": 3.218599319458008,
+      "reachable": 168114
+    },
+    {
+      "landmark": 84463,
+      "time": 2.6968610286712646,
+      "reachable": 168114
+    },
+    {
+      "landmark": 125426,
+      "time": 3.558199644088745,
+      "reachable": 168114
+    },
+    {
+      "landmark": 134173,
+      "time": 5.4784159660339355,
+      "reachable": 168114
+    },
+    {
+      "landmark": 143194,
+      "time": 4.983448266983032,
+      "reachable": 168114
+    },
+    {
+      "landmark": 6764,
+      "time": 4.876396656036377,
+      "reachable": 168114
+    },
+    {
+      "landmark": 97578,
+      "time": 4.824878454208374,
+      "reachable": 168114
+    },
+    {
+      "landmark": 111590,
+      "time": 4.5513622760772705,
+      "reachable": 168114
+    },
+    {
+      "landmark": 15332,
+      "time": 4.868669748306274,
+      "reachable": 168114
+    },
+    {
+      "landmark": 134184,
+      "time": 4.506847143173218,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5952,
+      "time": 4.937833547592163,
+      "reachable": 168114
+    },
+    {
+      "landmark": 85728,
+      "time": 5.1841511726379395,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5883,
+      "time": 4.662572383880615,
+      "reachable": 168114
+    },
+    {
+      "landmark": 56959,
+      "time": 4.752122402191162,
+      "reachable": 168114
+    },
+    {
+      "landmark": 11376,
+      "time": 4.3482887744903564,
+      "reachable": 168114
+    },
+    {
+      "landmark": 61109,
+      "time": 4.212695598602295,
+      "reachable": 168114
+    },
+    {
+      "landmark": 110332,
+      "time": 4.999379634857178,
+      "reachable": 168114
+    },
+    {
+      "landmark": 119515,
+      "time": 4.780499219894409,
+      "reachable": 168114
+    },
+    {
+      "landmark": 41229,
+      "time": 5.371970176696777,
+      "reachable": 168114
+    },
+    {
+      "landmark": 102650,
+      "time": 5.370111703872681,
+      "reachable": 168114
+    },
+    {
+      "landmark": 129866,
+      "time": 3.8708622455596924,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63418,
+      "time": 5.525545120239258,
+      "reachable": 168114
+    },
+    {
+      "landmark": 129118,
+      "time": 4.861431837081909,
+      "reachable": 168114
+    },
+    {
+      "landmark": 41284,
+      "time": 4.845077037811279,
+      "reachable": 168114
+    },
+    {
+      "landmark": 69056,
+      "time": 5.319716691970825,
+      "reachable": 168114
+    },
+    {
+      "landmark": 61015,
+      "time": 4.657020330429077,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63390,
+      "time": 5.037057638168335,
+      "reachable": 168114
+    },
+    {
+      "landmark": 150278,
+      "time": 4.522747278213501,
+      "reachable": 168114
+    },
+    {
+      "landmark": 36032,
+      "time": 4.463010549545288,
+      "reachable": 168114
+    },
+    {
+      "landmark": 127364,
+      "time": 5.607501268386841,
+      "reachable": 168114
+    },
+    {
+      "landmark": 68459,
+      "time": 5.692997932434082,
+      "reachable": 168114
+    },
+    {
+      "landmark": 117737,
+      "time": 5.101638317108154,
+      "reachable": 168114
+    },
+    {
+      "landmark": 96687,
+      "time": 5.15619683265686,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5957,
+      "time": 4.691073179244995,
+      "reachable": 168114
+    },
+    {
+      "landmark": 114814,
+      "time": 5.202265024185181,
+      "reachable": 168114
+    },
+    {
+      "landmark": 140180,
+      "time": 4.974304437637329,
+      "reachable": 168114
+    },
+    {
+      "landmark": 41281,
+      "time": 4.732180833816528,
+      "reachable": 168114
+    },
+    {
+      "landmark": 134174,
+      "time": 5.2679338455200195,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35921,
+      "time": 5.066181898117065,
+      "reachable": 168114
+    },
+    {
+      "landmark": 11360,
+      "time": 4.73360800743103,
+      "reachable": 168114
+    },
+    {
+      "landmark": 136734,
+      "time": 4.6172966957092285,
+      "reachable": 168114
+    },
+    {
+      "landmark": 76768,
+      "time": 5.0303919315338135,
+      "reachable": 168114
+    },
+    {
+      "landmark": 110283,
+      "time": 5.238823890686035,
+      "reachable": 168114
+    },
+    {
+      "landmark": 136930,
+      "time": 5.257406949996948,
+      "reachable": 168114
+    },
+    {
+      "landmark": 140645,
+      "time": 4.833537817001343,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35828,
+      "time": 4.70116662979126,
+      "reachable": 168114
+    },
+    {
+      "landmark": 96787,
+      "time": 4.616919994354248,
+      "reachable": 168114
+    },
+    {
+      "landmark": 102751,
+      "time": 4.448211908340454,
+      "reachable": 168114
+    },
+    {
+      "landmark": 141462,
+      "time": 4.61696982383728,
+      "reachable": 168114
+    },
+    {
+      "landmark": 55046,
+      "time": 4.52904200553894,
+      "reachable": 168114
+    },
+    {
+      "landmark": 13720,
+      "time": 4.449301719665527,
+      "reachable": 168114
+    },
+    {
+      "landmark": 57289,
+      "time": 4.635830879211426,
+      "reachable": 168114
+    },
+    {
+      "landmark": 76719,
+      "time": 4.552885293960571,
+      "reachable": 168114
+    },
+    {
+      "landmark": 62966,
+      "time": 4.591815710067749,
+      "reachable": 168114
+    },
+    {
+      "landmark": 60413,
+      "time": 4.877143144607544,
+      "reachable": 168114
+    },
+    {
+      "landmark": 118206,
+      "time": 4.803240537643433,
+      "reachable": 168114
+    },
+    {
+      "landmark": 14755,
+      "time": 5.076401710510254,
+      "reachable": 168114
+    },
+    {
+      "landmark": 13391,
+      "time": 4.169193506240845,
+      "reachable": 168114
+    },
+    {
+      "landmark": 111406,
+      "time": 4.5095415115356445,
+      "reachable": 168114
+    },
+    {
+      "landmark": 140634,
+      "time": 5.355792999267578,
+      "reachable": 168114
+    },
+    {
+      "landmark": 94144,
+      "time": 4.89703369140625,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63720,
+      "time": 5.043317556381226,
+      "reachable": 168114
+    },
+    {
+      "landmark": 141086,
+      "time": 5.0088279247283936,
+      "reachable": 168114
+    },
+    {
+      "landmark": 130317,
+      "time": 4.060392618179321,
+      "reachable": 168114
+    },
+    {
+      "landmark": 149931,
+      "time": 4.243922233581543,
+      "reachable": 168114
+    },
+    {
+      "landmark": 18174,
+      "time": 4.434622049331665,
+      "reachable": 168114
+    },
+    {
+      "landmark": 121199,
+      "time": 4.900999546051025,
+      "reachable": 168114
+    },
+    {
+      "landmark": 29740,
+      "time": 5.39555025100708,
+      "reachable": 168114
+    },
+    {
+      "landmark": 86763,
+      "time": 4.365900754928589,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35216,
+      "time": 5.198141813278198,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35082,
+      "time": 4.638575077056885,
+      "reachable": 168114
+    },
+    {
+      "landmark": 62321,
+      "time": 4.540390253067017,
+      "reachable": 168114
+    },
+    {
+      "landmark": 96688,
+      "time": 4.966177463531494,
+      "reachable": 168114
+    },
+    {
+      "landmark": 114495,
+      "time": 4.61480188369751,
+      "reachable": 168114
+    },
+    {
+      "landmark": 84440,
+      "time": 5.548196792602539,
+      "reachable": 168114
+    },
+    {
+      "landmark": 86119,
+      "time": 5.19014835357666,
+      "reachable": 168114
+    },
+    {
+      "landmark": 126821,
+      "time": 4.228140592575073,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5252,
+      "time": 4.733838319778442,
+      "reachable": 168114
+    },
+    {
+      "landmark": 126479,
+      "time": 4.56673002243042,
+      "reachable": 168114
+    },
+    {
+      "landmark": 148473,
+      "time": 4.669814109802246,
+      "reachable": 168114
+    },
+    {
+      "landmark": 148377,
+      "time": 4.916669845581055,
+      "reachable": 168114
+    },
+    {
+      "landmark": 33,
+      "time": 5.176969528198242,
+      "reachable": 168114
+    },
+    {
+      "landmark": 16666,
+      "time": 5.40967059135437,
+      "reachable": 168114
+    },
+    {
+      "landmark": 96645,
+      "time": 5.4990010261535645,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5508,
+      "time": 4.058141469955444,
+      "reachable": 168114
+    },
+    {
+      "landmark": 76920,
+      "time": 5.228497505187988,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5826,
+      "time": 5.263901710510254,
+      "reachable": 168114
+    },
+    {
+      "landmark": 118174,
+      "time": 5.113729238510132,
+      "reachable": 168114
+    },
+    {
+      "landmark": 130350,
+      "time": 5.03544282913208,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63323,
+      "time": 4.767064809799194,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35102,
+      "time": 5.194393873214722,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5955,
+      "time": 5.105280160903931,
+      "reachable": 168114
+    },
+    {
+      "landmark": 102642,
+      "time": 4.808383464813232,
+      "reachable": 168114
+    },
+    {
+      "landmark": 110798,
+      "time": 4.74027943611145,
+      "reachable": 168114
+    },
+    {
+      "landmark": 111442,
+      "time": 5.63068699836731,
+      "reachable": 168114
+    },
+    {
+      "landmark": 90869,
+      "time": 5.063683271408081,
+      "reachable": 168114
+    },
+    {
+      "landmark": 113713,
+      "time": 4.638252258300781,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35891,
+      "time": 4.986371278762817,
+      "reachable": 168114
+    },
+    {
+      "landmark": 123127,
+      "time": 5.453454971313477,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112981,
+      "time": 5.158726692199707,
+      "reachable": 168114
+    },
+    {
+      "landmark": 89005,
+      "time": 4.5683043003082275,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5924,
+      "time": 5.655108213424683,
+      "reachable": 168114
+    },
+    {
+      "landmark": 61303,
+      "time": 4.504975318908691,
+      "reachable": 168114
+    },
+    {
+      "landmark": 124841,
+      "time": 5.372903823852539,
+      "reachable": 168114
+    },
+    {
+      "landmark": 41985,
+      "time": 4.315201759338379,
+      "reachable": 168114
+    },
+    {
+      "landmark": 133217,
+      "time": 4.579036712646484,
+      "reachable": 168114
+    },
+    {
+      "landmark": 78644,
+      "time": 4.993798017501831,
+      "reachable": 168114
+    },
+    {
+      "landmark": 75459,
+      "time": 4.812574148178101,
+      "reachable": 168114
+    },
+    {
+      "landmark": 90158,
+      "time": 3.9752111434936523,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63319,
+      "time": 4.852170467376709,
+      "reachable": 168114
+    },
+    {
+      "landmark": 136831,
+      "time": 3.8902223110198975,
+      "reachable": 168114
+    },
+    {
+      "landmark": 149628,
+      "time": 3.013519048690796,
+      "reachable": 168114
+    },
+    {
+      "landmark": 61106,
+      "time": 5.435103178024292,
+      "reachable": 168114
+    },
+    {
+      "landmark": 97707,
+      "time": 4.940126895904541,
+      "reachable": 168114
+    },
+    {
+      "landmark": 133316,
+      "time": 4.601051092147827,
+      "reachable": 168114
+    },
+    {
+      "landmark": 68492,
+      "time": 4.870129585266113,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5872,
+      "time": 4.856277942657471,
+      "reachable": 168114
+    },
+    {
+      "landmark": 124405,
+      "time": 5.145640134811401,
+      "reachable": 168114
+    },
+    {
+      "landmark": 130446,
+      "time": 4.2545952796936035,
+      "reachable": 168114
+    },
+    {
+      "landmark": 136855,
+      "time": 4.139344692230225,
+      "reachable": 168114
+    },
+    {
+      "landmark": 109253,
+      "time": 5.397897243499756,
+      "reachable": 168114
+    },
+    {
+      "landmark": 39457,
+      "time": 4.860045671463013,
+      "reachable": 168114
+    },
+    {
+      "landmark": 21495,
+      "time": 5.197130918502808,
+      "reachable": 168114
+    },
+    {
+      "landmark": 61105,
+      "time": 4.844217300415039,
+      "reachable": 168114
+    },
+    {
+      "landmark": 153930,
+      "time": 3.88205623626709,
+      "reachable": 168114
+    },
+    {
+      "landmark": 76361,
+      "time": 5.139123201370239,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112964,
+      "time": 5.067123174667358,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35829,
+      "time": 4.996172904968262,
+      "reachable": 168114
+    },
+    {
+      "landmark": 140153,
+      "time": 5.770765542984009,
+      "reachable": 168114
+    },
+    {
+      "landmark": 4058,
+      "time": 5.640979766845703,
+      "reachable": 168114
+    },
+    {
+      "landmark": 147184,
+      "time": 5.348440170288086,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63239,
+      "time": 5.785032510757446,
+      "reachable": 168114
+    },
+    {
+      "landmark": 96423,
+      "time": 5.272109031677246,
+      "reachable": 168114
+    },
+    {
+      "landmark": 84018,
+      "time": 5.980930328369141,
+      "reachable": 168114
+    },
+    {
+      "landmark": 4612,
+      "time": 5.024572372436523,
+      "reachable": 168114
+    },
+    {
+      "landmark": 141380,
+      "time": 4.924754858016968,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112952,
+      "time": 4.418199062347412,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35946,
+      "time": 3.410244941711426,
+      "reachable": 168114
+    },
+    {
+      "landmark": 140550,
+      "time": 3.9062914848327637,
+      "reachable": 168114
+    },
+    {
+      "landmark": 134908,
+      "time": 4.61637806892395,
+      "reachable": 168114
+    },
+    {
+      "landmark": 144757,
+      "time": 3.471240997314453,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35342,
+      "time": 4.301231145858765,
+      "reachable": 168114
+    },
+    {
+      "landmark": 156269,
+      "time": 3.0769171714782715,
+      "reachable": 168114
+    },
+    {
+      "landmark": 78706,
+      "time": 4.653510570526123,
+      "reachable": 168114
+    },
+    {
+      "landmark": 130412,
+      "time": 3.8831593990325928,
+      "reachable": 168114
+    },
+    {
+      "landmark": 78766,
+      "time": 4.1185901165008545,
+      "reachable": 168114
+    },
+    {
+      "landmark": 109217,
+      "time": 4.269559621810913,
+      "reachable": 168114
+    },
+    {
+      "landmark": 142120,
+      "time": 3.9951908588409424,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112052,
+      "time": 3.5144288539886475,
+      "reachable": 168114
+    },
+    {
+      "landmark": 97592,
+      "time": 4.37466835975647,
+      "reachable": 168114
+    },
+    {
+      "landmark": 129803,
+      "time": 4.175284385681152,
+      "reachable": 168114
+    },
+    {
+      "landmark": 93121,
+      "time": 4.488834857940674,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63357,
+      "time": 4.60316276550293,
+      "reachable": 168114
+    },
+    {
+      "landmark": 115903,
+      "time": 4.318020582199097,
+      "reachable": 168114
+    },
+    {
+      "landmark": 88833,
+      "time": 4.0661516189575195,
+      "reachable": 168114
+    },
+    {
+      "landmark": 126131,
+      "time": 4.708993196487427,
+      "reachable": 168114
+    },
+    {
+      "landmark": 48814,
+      "time": 3.963440179824829,
+      "reachable": 168114
+    },
+    {
+      "landmark": 142750,
+      "time": 4.0135393142700195,
+      "reachable": 168114
+    },
+    {
+      "landmark": 123221,
+      "time": 4.1773903369903564,
+      "reachable": 168114
+    },
+    {
+      "landmark": 4861,
+      "time": 4.500387907028198,
+      "reachable": 168114
+    },
+    {
+      "landmark": 14324,
+      "time": 4.21274733543396,
+      "reachable": 168114
+    },
+    {
+      "landmark": 110267,
+      "time": 4.429961442947388,
+      "reachable": 168114
+    },
+    {
+      "landmark": 97615,
+      "time": 5.776660203933716,
+      "reachable": 168114
+    },
+    {
+      "landmark": 150869,
+      "time": 4.633306264877319,
+      "reachable": 168114
+    },
+    {
+      "landmark": 138115,
+      "time": 5.073708772659302,
+      "reachable": 168114
+    },
+    {
+      "landmark": 128098,
+      "time": 5.338680982589722,
+      "reachable": 168114
+    },
+    {
+      "landmark": 137493,
+      "time": 3.1528003215789795,
+      "reachable": 168114
+    },
+    {
+      "landmark": 56164,
+      "time": 4.074380397796631,
+      "reachable": 168114
+    },
+    {
+      "landmark": 11358,
+      "time": 4.633125305175781,
+      "reachable": 168114
+    },
+    {
+      "landmark": 126052,
+      "time": 4.2923362255096436,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35661,
+      "time": 4.288574934005737,
+      "reachable": 168114
+    },
+    {
+      "landmark": 129870,
+      "time": 4.607106924057007,
+      "reachable": 168114
+    },
+    {
+      "landmark": 84603,
+      "time": 3.809171199798584,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63114,
+      "time": 4.251697063446045,
+      "reachable": 168114
+    },
+    {
+      "landmark": 124839,
+      "time": 4.410852670669556,
+      "reachable": 168114
+    },
+    {
+      "landmark": 146512,
+      "time": 3.6323013305664062,
+      "reachable": 168114
+    },
+    {
+      "landmark": 149737,
+      "time": 4.358453035354614,
+      "reachable": 168114
+    },
+    {
+      "landmark": 12227,
+      "time": 4.2498486042022705,
+      "reachable": 168114
+    },
+    {
+      "landmark": 126165,
+      "time": 5.074167490005493,
+      "reachable": 168114
+    },
+    {
+      "landmark": 90916,
+      "time": 5.155622720718384,
+      "reachable": 168114
+    },
+    {
+      "landmark": 18585,
+      "time": 3.9155752658843994,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112917,
+      "time": 5.039313316345215,
+      "reachable": 168114
+    },
+    {
+      "landmark": 138911,
+      "time": 3.928600311279297,
+      "reachable": 168114
+    },
+    {
+      "landmark": 133159,
+      "time": 4.47466778755188,
+      "reachable": 168114
+    },
+    {
+      "landmark": 149690,
+      "time": 4.127782821655273,
+      "reachable": 168114
+    },
+    {
+      "landmark": 146515,
+      "time": 3.3554651737213135,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35888,
+      "time": 4.200782775878906,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5856,
+      "time": 4.996140003204346,
+      "reachable": 168114
+    },
+    {
+      "landmark": 40283,
+      "time": 4.23468542098999,
+      "reachable": 168114
+    },
+    {
+      "landmark": 78285,
+      "time": 4.652098178863525,
+      "reachable": 168114
+    },
+    {
+      "landmark": 134212,
+      "time": 3.979076862335205,
+      "reachable": 168114
+    },
+    {
+      "landmark": 116685,
+      "time": 4.7819085121154785,
+      "reachable": 168114
+    },
+    {
+      "landmark": 75733,
+      "time": 4.303828954696655,
+      "reachable": 168114
+    },
+    {
+      "landmark": 117471,
+      "time": 4.5851428508758545,
+      "reachable": 168114
+    },
+    {
+      "landmark": 41006,
+      "time": 4.290137529373169,
+      "reachable": 168114
+    },
+    {
+      "landmark": 109390,
+      "time": 4.587098598480225,
+      "reachable": 168114
+    },
+    {
+      "landmark": 72465,
+      "time": 3.716050148010254,
+      "reachable": 168114
+    },
+    {
+      "landmark": 140643,
+      "time": 4.296311140060425,
+      "reachable": 168114
+    },
+    {
+      "landmark": 137182,
+      "time": 2.914541006088257,
+      "reachable": 168114
+    },
+    {
+      "landmark": 147364,
+      "time": 4.2026824951171875,
+      "reachable": 168114
+    },
+    {
+      "landmark": 36269,
+      "time": 4.662680625915527,
+      "reachable": 168114
+    },
+    {
+      "landmark": 45756,
+      "time": 3.4769363403320312,
+      "reachable": 168114
+    },
+    {
+      "landmark": 130320,
+      "time": 4.338316917419434,
+      "reachable": 168114
+    },
+    {
+      "landmark": 149491,
+      "time": 3.5452849864959717,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63352,
+      "time": 3.9426748752593994,
+      "reachable": 168114
+    },
+    {
+      "landmark": 129780,
+      "time": 4.298181056976318,
+      "reachable": 168114
+    },
+    {
+      "landmark": 68007,
+      "time": 3.608778953552246,
+      "reachable": 168114
+    },
+    {
+      "landmark": 78759,
+      "time": 4.1945765018463135,
+      "reachable": 168114
+    },
+    {
+      "landmark": 78925,
+      "time": 4.193495750427246,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35091,
+      "time": 4.047626256942749,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35892,
+      "time": 4.417434453964233,
+      "reachable": 168114
+    },
+    {
+      "landmark": 111486,
+      "time": 4.644925832748413,
+      "reachable": 168114
+    },
+    {
+      "landmark": 11715,
+      "time": 3.791334390640259,
+      "reachable": 168114
+    },
+    {
+      "landmark": 151118,
+      "time": 3.5123825073242188,
+      "reachable": 168114
+    },
+    {
+      "landmark": 68395,
+      "time": 4.073327302932739,
+      "reachable": 168114
+    },
+    {
+      "landmark": 120225,
+      "time": 4.460875034332275,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35839,
+      "time": 4.1268322467803955,
+      "reachable": 168114
+    },
+    {
+      "landmark": 115910,
+      "time": 4.170454502105713,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112993,
+      "time": 4.666569471359253,
+      "reachable": 168114
+    },
+    {
+      "landmark": 136853,
+      "time": 4.231900691986084,
+      "reachable": 168114
+    },
+    {
+      "landmark": 84396,
+      "time": 3.72662353515625,
+      "reachable": 168114
+    },
+    {
+      "landmark": 14645,
+      "time": 3.9550797939300537,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112946,
+      "time": 4.485795974731445,
+      "reachable": 168114
+    },
+    {
+      "landmark": 134609,
+      "time": 4.31496524810791,
+      "reachable": 168114
+    },
+    {
+      "landmark": 15002,
+      "time": 4.2355475425720215,
+      "reachable": 168114
+    },
+    {
+      "landmark": 110213,
+      "time": 4.085131883621216,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112909,
+      "time": 4.68079400062561,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5526,
+      "time": 4.447055339813232,
+      "reachable": 168114
+    },
+    {
+      "landmark": 97590,
+      "time": 4.1681437492370605,
+      "reachable": 168114
+    },
+    {
+      "landmark": 97564,
+      "time": 4.761477947235107,
+      "reachable": 168114
+    },
+    {
+      "landmark": 127805,
+      "time": 4.037737607955933,
+      "reachable": 168114
+    },
+    {
+      "landmark": 131932,
+      "time": 4.2048773765563965,
+      "reachable": 168114
+    },
+    {
+      "landmark": 124862,
+      "time": 4.600804090499878,
+      "reachable": 168114
+    },
+    {
+      "landmark": 86769,
+      "time": 4.2204976081848145,
+      "reachable": 168114
+    },
+    {
+      "landmark": 162430,
+      "time": 3.667711019515991,
+      "reachable": 168114
+    },
+    {
+      "landmark": 96301,
+      "time": 4.034802198410034,
+      "reachable": 168114
+    },
+    {
+      "landmark": 133920,
+      "time": 3.555072546005249,
+      "reachable": 168114
+    },
+    {
+      "landmark": 79136,
+      "time": 4.5984108448028564,
+      "reachable": 168114
+    },
+    {
+      "landmark": 136848,
+      "time": 3.8365607261657715,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35546,
+      "time": 4.169405460357666,
+      "reachable": 168114
+    },
+    {
+      "landmark": 94752,
+      "time": 4.670447111129761,
+      "reachable": 168114
+    },
+    {
+      "landmark": 117331,
+      "time": 3.8373613357543945,
+      "reachable": 168114
+    },
+    {
+      "landmark": 71925,
+      "time": 4.362741708755493,
+      "reachable": 168114
+    },
+    {
+      "landmark": 86078,
+      "time": 3.889132022857666,
+      "reachable": 168114
+    },
+    {
+      "landmark": 124323,
+      "time": 3.468355894088745,
+      "reachable": 168114
+    },
+    {
+      "landmark": 153236,
+      "time": 3.719318389892578,
+      "reachable": 168114
+    },
+    {
+      "landmark": 124754,
+      "time": 4.160564422607422,
+      "reachable": 168114
+    },
+    {
+      "landmark": 124894,
+      "time": 4.38043999671936,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5917,
+      "time": 4.265621185302734,
+      "reachable": 168114
+    },
+    {
+      "landmark": 108832,
+      "time": 4.278716564178467,
+      "reachable": 168114
+    },
+    {
+      "landmark": 47840,
+      "time": 3.8356144428253174,
+      "reachable": 168114
+    },
+    {
+      "landmark": 159960,
+      "time": 3.005513906478882,
+      "reachable": 168114
+    },
+    {
+      "landmark": 156863,
+      "time": 3.2393555641174316,
+      "reachable": 168114
+    },
+    {
+      "landmark": 62235,
+      "time": 4.642366409301758,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5657,
+      "time": 4.122645139694214,
+      "reachable": 168114
+    },
+    {
+      "landmark": 4533,
+      "time": 4.7449822425842285,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5476,
+      "time": 4.526568651199341,
+      "reachable": 168114
+    },
+    {
+      "landmark": 130596,
+      "time": 3.945037841796875,
+      "reachable": 168114
+    },
+    {
+      "landmark": 113886,
+      "time": 4.303555727005005,
+      "reachable": 168114
+    },
+    {
+      "landmark": 110166,
+      "time": 3.9633431434631348,
+      "reachable": 168114
+    },
+    {
+      "landmark": 40883,
+      "time": 4.1930317878723145,
+      "reachable": 168114
+    },
+    {
+      "landmark": 96759,
+      "time": 4.458616018295288,
+      "reachable": 168114
+    },
+    {
+      "landmark": 118976,
+      "time": 4.084633111953735,
+      "reachable": 168114
+    },
+    {
+      "landmark": 109252,
+      "time": 4.849724769592285,
+      "reachable": 168114
+    },
+    {
+      "landmark": 140309,
+      "time": 3.8423893451690674,
+      "reachable": 168114
+    },
+    {
+      "landmark": 117604,
+      "time": 4.437547206878662,
+      "reachable": 168114
+    },
+    {
+      "landmark": 4783,
+      "time": 4.497536659240723,
+      "reachable": 168114
+    },
+    {
+      "landmark": 149608,
+      "time": 3.4751622676849365,
+      "reachable": 168114
+    },
+    {
+      "landmark": 129840,
+      "time": 4.838214159011841,
+      "reachable": 168114
+    },
+    {
+      "landmark": 31859,
+      "time": 4.415876626968384,
+      "reachable": 168114
+    },
+    {
+      "landmark": 115887,
+      "time": 4.187479734420776,
+      "reachable": 168114
+    },
+    {
+      "landmark": 133799,
+      "time": 4.3093180656433105,
+      "reachable": 168114
+    },
+    {
+      "landmark": 86132,
+      "time": 4.337761878967285,
+      "reachable": 168114
+    },
+    {
+      "landmark": 87098,
+      "time": 4.234996318817139,
+      "reachable": 168114
+    },
+    {
+      "landmark": 110691,
+      "time": 4.379244327545166,
+      "reachable": 168114
+    },
+    {
+      "landmark": 84436,
+      "time": 3.707594394683838,
+      "reachable": 168114
+    },
+    {
+      "landmark": 125259,
+      "time": 3.8290863037109375,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35386,
+      "time": 4.3624184131622314,
+      "reachable": 168114
+    },
+    {
+      "landmark": 76981,
+      "time": 3.993058443069458,
+      "reachable": 168114
+    },
+    {
+      "landmark": 143791,
+      "time": 3.520519733428955,
+      "reachable": 168114
+    },
+    {
+      "landmark": 134280,
+      "time": 4.6553614139556885,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112823,
+      "time": 4.160035133361816,
+      "reachable": 168114
+    },
+    {
+      "landmark": 137233,
+      "time": 4.000365257263184,
+      "reachable": 168114
+    },
+    {
+      "landmark": 120231,
+      "time": 3.9862043857574463,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5893,
+      "time": 4.351914405822754,
+      "reachable": 168114
+    },
+    {
+      "landmark": 82606,
+      "time": 4.213017463684082,
+      "reachable": 168114
+    },
+    {
+      "landmark": 1755,
+      "time": 3.517505407333374,
+      "reachable": 168114
+    },
+    {
+      "landmark": 116658,
+      "time": 4.515155792236328,
+      "reachable": 168114
+    },
+    {
+      "landmark": 140067,
+      "time": 3.906118154525757,
+      "reachable": 168114
+    },
+    {
+      "landmark": 109199,
+      "time": 3.727694272994995,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112959,
+      "time": 4.475953102111816,
+      "reachable": 168114
+    },
+    {
+      "landmark": 11518,
+      "time": 4.066075801849365,
+      "reachable": 168114
+    },
+    {
+      "landmark": 143199,
+      "time": 3.4508957862854004,
+      "reachable": 168114
+    },
+    {
+      "landmark": 102643,
+      "time": 4.531189918518066,
+      "reachable": 168114
+    },
+    {
+      "landmark": 117681,
+      "time": 3.3903872966766357,
+      "reachable": 168114
+    },
+    {
+      "landmark": 127115,
+      "time": 4.1709349155426025,
+      "reachable": 168114
+    },
+    {
+      "landmark": 53794,
+      "time": 4.0599448680877686,
+      "reachable": 168114
+    },
+    {
+      "landmark": 116615,
+      "time": 4.4505040645599365,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112947,
+      "time": 4.351573467254639,
+      "reachable": 168114
+    },
+    {
+      "landmark": 126485,
+      "time": 4.11357045173645,
+      "reachable": 168114
+    },
+    {
+      "landmark": 102635,
+      "time": 4.199222803115845,
+      "reachable": 168114
+    },
+    {
+      "landmark": 62888,
+      "time": 4.342263460159302,
+      "reachable": 168114
+    },
+    {
+      "landmark": 95495,
+      "time": 3.8655591011047363,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63359,
+      "time": 4.423788070678711,
+      "reachable": 168114
+    },
+    {
+      "landmark": 45637,
+      "time": 3.9542853832244873,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112421,
+      "time": 3.9460039138793945,
+      "reachable": 168114
+    },
+    {
+      "landmark": 159084,
+      "time": 3.291973114013672,
+      "reachable": 168114
+    },
+    {
+      "landmark": 116706,
+      "time": 4.156097173690796,
+      "reachable": 168114
+    },
+    {
+      "landmark": 123224,
+      "time": 4.219419956207275,
+      "reachable": 168114
+    },
+    {
+      "landmark": 151937,
+      "time": 3.4591896533966064,
+      "reachable": 168114
+    },
+    {
+      "landmark": 44489,
+      "time": 3.5246477127075195,
+      "reachable": 168114
+    },
+    {
+      "landmark": 5656,
+      "time": 3.923588275909424,
+      "reachable": 168114
+    },
+    {
+      "landmark": 147257,
+      "time": 4.058217287063599,
+      "reachable": 168114
+    },
+    {
+      "landmark": 128857,
+      "time": 3.7130603790283203,
+      "reachable": 168114
+    },
+    {
+      "landmark": 96547,
+      "time": 4.867686748504639,
+      "reachable": 168114
+    },
+    {
+      "landmark": 64008,
+      "time": 3.981271266937256,
+      "reachable": 168114
+    },
+    {
+      "landmark": 71667,
+      "time": 4.288026332855225,
+      "reachable": 168114
+    },
+    {
+      "landmark": 39303,
+      "time": 4.590125560760498,
+      "reachable": 168114
+    },
+    {
+      "landmark": 118064,
+      "time": 4.379650592803955,
+      "reachable": 168114
+    },
+    {
+      "landmark": 110143,
+      "time": 4.493921995162964,
+      "reachable": 168114
+    },
+    {
+      "landmark": 109069,
+      "time": 4.3386359214782715,
+      "reachable": 168114
+    },
+    {
+      "landmark": 158347,
+      "time": 3.043588399887085,
+      "reachable": 168114
+    },
+    {
+      "landmark": 96493,
+      "time": 4.323248863220215,
+      "reachable": 168114
+    },
+    {
+      "landmark": 111198,
+      "time": 3.5474562644958496,
+      "reachable": 168114
+    },
+    {
+      "landmark": 145019,
+      "time": 3.2577550411224365,
+      "reachable": 168114
+    },
+    {
+      "landmark": 135628,
+      "time": 3.4890594482421875,
+      "reachable": 168114
+    },
+    {
+      "landmark": 28282,
+      "time": 3.8286852836608887,
+      "reachable": 168114
+    },
+    {
+      "landmark": 155035,
+      "time": 3.4271082878112793,
+      "reachable": 168114
+    },
+    {
+      "landmark": 45765,
+      "time": 4.153270483016968,
+      "reachable": 168114
+    },
+    {
+      "landmark": 109259,
+      "time": 3.018942356109619,
+      "reachable": 168114
+    },
+    {
+      "landmark": 63408,
+      "time": 3.868133068084717,
+      "reachable": 168114
+    },
+    {
+      "landmark": 162568,
+      "time": 3.399547815322876,
+      "reachable": 168114
+    },
+    {
+      "landmark": 115033,
+      "time": 3.469848394393921,
+      "reachable": 168114
+    },
+    {
+      "landmark": 84263,
+      "time": 3.7978146076202393,
+      "reachable": 168114
+    },
+    {
+      "landmark": 29753,
+      "time": 4.055675745010376,
+      "reachable": 168114
+    },
+    {
+      "landmark": 110763,
+      "time": 4.129217147827148,
+      "reachable": 168114
+    },
+    {
+      "landmark": 66706,
+      "time": 3.916317939758301,
+      "reachable": 168114
+    },
+    {
+      "landmark": 111506,
+      "time": 4.142009496688843,
+      "reachable": 168114
+    },
+    {
+      "landmark": 136466,
+      "time": 3.5375683307647705,
+      "reachable": 168114
+    },
+    {
+      "landmark": 76407,
+      "time": 3.981403112411499,
+      "reachable": 168114
+    },
+    {
+      "landmark": 85104,
+      "time": 4.381709814071655,
+      "reachable": 168114
+    },
+    {
+      "landmark": 123155,
+      "time": 4.7866315841674805,
+      "reachable": 168114
+    },
+    {
+      "landmark": 60429,
+      "time": 3.511594295501709,
+      "reachable": 168114
+    },
+    {
+      "landmark": 102683,
+      "time": 4.355813264846802,
+      "reachable": 168114
+    },
+    {
+      "landmark": 133100,
+      "time": 3.8730883598327637,
+      "reachable": 168114
+    },
+    {
+      "landmark": 135538,
+      "time": 4.241730213165283,
+      "reachable": 168114
+    },
+    {
+      "landmark": 68413,
+      "time": 4.53020453453064,
+      "reachable": 168114
+    },
+    {
+      "landmark": 68480,
+      "time": 4.210484504699707,
+      "reachable": 168114
+    },
+    {
+      "landmark": 126809,
+      "time": 4.535301923751831,
+      "reachable": 168114
+    },
+    {
+      "landmark": 39357,
+      "time": 4.170576095581055,
+      "reachable": 168114
+    },
+    {
+      "landmark": 61107,
+      "time": 4.195695877075195,
+      "reachable": 168114
+    },
+    {
+      "landmark": 102990,
+      "time": 4.212726831436157,
+      "reachable": 168114
+    },
+    {
+      "landmark": 118102,
+      "time": 4.170609951019287,
+      "reachable": 168114
+    },
+    {
+      "landmark": 78831,
+      "time": 5.15383243560791,
+      "reachable": 168114
+    },
+    {
+      "landmark": 87186,
+      "time": 4.939218044281006,
+      "reachable": 168114
+    },
+    {
+      "landmark": 126228,
+      "time": 3.5748579502105713,
+      "reachable": 168114
+    },
+    {
+      "landmark": 96503,
+      "time": 4.311253309249878,
+      "reachable": 168114
+    },
+    {
+      "landmark": 27938,
+      "time": 4.715408563613892,
+      "reachable": 168114
+    },
+    {
+      "landmark": 111542,
+      "time": 3.82694149017334,
+      "reachable": 168114
+    },
+    {
+      "landmark": 140414,
+      "time": 5.180091619491577,
+      "reachable": 168114
+    },
+    {
+      "landmark": 112904,
+      "time": 3.9131226539611816,
+      "reachable": 168114
+    },
+    {
+      "landmark": 86224,
+      "time": 2.081319808959961,
+      "reachable": 168114
+    },
+    {
+      "landmark": 129993,
+      "time": 3.6926143169403076,
+      "reachable": 168114
+    },
+    {
+      "landmark": 35903,
+      "time": 3.964006185531616,
+      "reachable": 168114
+    },
+    {
+      "landmark": 141235,
+      "time": 3.978578805923462,
+      "reachable": 168114
+    },
+    {
+      "landmark": 116995,
+      "time": 3.342740774154663,
+      "reachable": 168114
+    }
+  ],
+  "landmarks": [
+    4812,
+    4480,
+    40714,
+    35538,
+    41260,
+    5963,
+    4553,
+    11468,
+    35996,
+    36058,
+    25182,
+    10280,
+    27,
+    8331,
+    63251,
+    61104,
+    76144,
+    11388,
+    4474,
+    10016,
+    14703,
+    4731,
+    83509,
+    5911,
+    63420,
+    5032,
+    39329,
+    61012,
+    4906,
+    28583,
+    4618,
+    39728,
+    35275,
+    35160,
+    83523,
+    35971,
+    19,
+    5140,
+    129789,
+    77072,
+    5160,
+    35935,
+    5079,
+    63315,
+    94820,
+    35889,
+    66054,
+    78730,
+    87162,
+    113735,
+    11476,
+    14713,
+    35974,
+    39768,
+    39279,
+    35734,
+    35823,
+    76826,
+    35640,
+    130364,
+    76769,
+    39334,
+    63383,
+    62840,
+    129964,
+    16,
+    114248,
+    71282,
+    148934,
+    11483,
+    133153,
+    41074,
+    5966,
+    36037,
+    135810,
+    116636,
+    96288,
+    50765,
+    113025,
+    140565,
+    94798,
+    3300,
+    133321,
+    143184,
+    63377,
+    6683,
+    68456,
+    61814,
+    89922,
+    79010,
+    39394,
+    35833,
+    93168,
+    63424,
+    5913,
+    62955,
+    94141,
+    24906,
+    110175,
+    111397,
+    113732,
+    117735,
+    62709,
+    56405,
+    5559,
+    11940,
+    76279,
+    19425,
+    97539,
+    141932,
+    5048,
+    15204,
+    94814,
+    41264,
+    39293,
+    61267,
+    109205,
+    90882,
+    71269,
+    85905,
+    93514,
+    3445,
+    112658,
+    129786,
+    112699,
+    62020,
+    133155,
+    147150,
+    5889,
+    88406,
+    63316,
+    35960,
+    112858,
+    112413,
+    116700,
+    84463,
+    125426,
+    134173,
+    143194,
+    6764,
+    97578,
+    111590,
+    15332,
+    134184,
+    5952,
+    85728,
+    5883,
+    56959,
+    11376,
+    61109,
+    110332,
+    119515,
+    41229,
+    102650,
+    129866,
+    63418,
+    129118,
+    41284,
+    69056,
+    61015,
+    63390,
+    150278,
+    36032,
+    127364,
+    68459,
+    117737,
+    96687,
+    5957,
+    114814,
+    140180,
+    41281,
+    134174,
+    35921,
+    11360,
+    136734,
+    76768,
+    110283,
+    136930,
+    140645,
+    35828,
+    96787,
+    102751,
+    141462,
+    55046,
+    13720,
+    57289,
+    76719,
+    62966,
+    60413,
+    118206,
+    14755,
+    13391,
+    111406,
+    140634,
+    94144,
+    63720,
+    141086,
+    130317,
+    149931,
+    18174,
+    121199,
+    29740,
+    86763,
+    35216,
+    35082,
+    62321,
+    96688,
+    114495,
+    84440,
+    86119,
+    126821,
+    5252,
+    126479,
+    148473,
+    148377,
+    33,
+    16666,
+    96645,
+    5508,
+    76920,
+    5826,
+    118174,
+    130350,
+    63323,
+    35102,
+    5955,
+    102642,
+    110798,
+    111442,
+    90869,
+    113713,
+    35891,
+    123127,
+    112981,
+    89005,
+    5924,
+    61303,
+    124841,
+    41985,
+    133217,
+    78644,
+    75459,
+    90158,
+    63319,
+    136831,
+    149628,
+    61106,
+    97707,
+    133316,
+    68492,
+    5872,
+    124405,
+    130446,
+    136855,
+    109253,
+    39457,
+    21495,
+    61105,
+    153930,
+    76361,
+    112964,
+    35829,
+    140153,
+    4058,
+    147184,
+    63239,
+    96423,
+    84018,
+    4612,
+    141380,
+    112952,
+    35946,
+    140550,
+    134908,
+    144757,
+    35342,
+    156269,
+    78706,
+    130412,
+    78766,
+    109217,
+    142120,
+    112052,
+    97592,
+    129803,
+    93121,
+    63357,
+    115903,
+    88833,
+    126131,
+    48814,
+    142750,
+    123221,
+    4861,
+    14324,
+    110267,
+    97615,
+    150869,
+    138115,
+    128098,
+    137493,
+    56164,
+    11358,
+    126052,
+    35661,
+    129870,
+    84603,
+    63114,
+    124839,
+    146512,
+    149737,
+    12227,
+    126165,
+    90916,
+    18585,
+    112917,
+    138911,
+    133159,
+    149690,
+    146515,
+    35888,
+    5856,
+    40283,
+    78285,
+    134212,
+    116685,
+    75733,
+    117471,
+    41006,
+    109390,
+    72465,
+    140643,
+    137182,
+    147364,
+    36269,
+    45756,
+    130320,
+    149491,
+    63352,
+    129780,
+    68007,
+    78759,
+    78925,
+    35091,
+    35892,
+    111486,
+    11715,
+    151118,
+    68395,
+    120225,
+    35839,
+    115910,
+    112993,
+    136853,
+    84396,
+    14645,
+    112946,
+    134609,
+    15002,
+    110213,
+    112909,
+    5526,
+    97590,
+    97564,
+    127805,
+    131932,
+    124862,
+    86769,
+    162430,
+    96301,
+    133920,
+    79136,
+    136848,
+    35546,
+    94752,
+    117331,
+    71925,
+    86078,
+    124323,
+    153236,
+    124754,
+    124894,
+    5917,
+    108832,
+    47840,
+    159960,
+    156863,
+    62235,
+    5657,
+    4533,
+    5476,
+    130596,
+    113886,
+    110166,
+    40883,
+    96759,
+    118976,
+    109252,
+    140309,
+    117604,
+    4783,
+    149608,
+    129840,
+    31859,
+    115887,
+    133799,
+    86132,
+    87098,
+    110691,
+    84436,
+    125259,
+    35386,
+    76981,
+    143791,
+    134280,
+    112823,
+    137233,
+    120231,
+    5893,
+    82606,
+    1755,
+    116658,
+    140067,
+    109199,
+    112959,
+    11518,
+    143199,
+    102643,
+    117681,
+    127115,
+    53794,
+    116615,
+    112947,
+    126485,
+    102635,
+    62888,
+    95495,
+    63359,
+    45637,
+    112421,
+    159084,
+    116706,
+    123224,
+    151937,
+    44489,
+    5656,
+    147257,
+    128857,
+    96547,
+    64008,
+    71667,
+    39303,
+    118064,
+    110143,
+    109069,
+    158347,
+    96493,
+    111198,
+    145019,
+    135628,
+    28282,
+    155035,
+    45765,
+    109259,
+    63408,
+    162568,
+    115033,
+    84263,
+    29753,
+    110763,
+    66706,
+    111506,
+    136466,
+    76407,
+    85104,
+    123155,
+    60429,
+    102683,
+    133100,
+    135538,
+    68413,
+    68480,
+    126809,
+    39357,
+    61107,
+    102990,
+    118102,
+    78831,
+    87186,
+    126228,
+    96503,
+    27938,
+    111542,
+    140414,
+    112904,
+    86224,
+    129993,
+    35903,
+    141235,
+    116995
+  ]
+}

@@ -2,7 +2,7 @@
 
 input_tsv: "large_twitch_edges.csv"
 output_dir: "output"
-k: 5
+k: 500                         # 2, 5, 10, 20, 50, 100, 500
 h_min: 1
 lm_sel: "brandes"
 queries:

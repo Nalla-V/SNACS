@@ -15,12 +15,13 @@ import re
 FOLDER = "twitch"
 
 STRATEGY_INFO = {
-    "random":       {"name": "Random",        "color": "#7f7f7f", "marker": "o"},
-    "degree":       {"name": "Degree",        "color": "#1f77b4", "marker": "s"},
+    "random":       {"name": "Random",        "color": "#000000", "marker": "o"},
+    "degree":       {"name": "Degree",        "color": "#fcf80b", "marker": "s"},
     "degree_h":     {"name": "Degree/1",      "color": "#17becf", "marker": "^"},
-    "closeness":    {"name": "Closeness",     "color": "#2ca02c", "marker": "D"},
-    "closeness_h":  {"name": "Closeness/1",   "color": "#98df8a", "marker": "v"},
+    "closeness":    {"name": "Closeness",     "color": "#09c406", "marker": "D"},
+    "closeness_h":  {"name": "Closeness/1",   "color": "#f3b10a", "marker": "v"},
     "brandes":      {"name": "Brandes",       "color": "#d62728", "marker": "P", "lw": 3, "ms": 11},
+    "brandes_h":    {"name": "Brandes/1",     "color": "#0f13ff", "marker": "X", "lw": 3, "ms": 11},
 }
 
 print(f"\nScanning: {os.path.abspath(FOLDER)}\n")
@@ -108,17 +109,14 @@ plt.xlabel("Size of landmark set", fontsize=15)
 plt.ylabel("Approximation error", fontsize=15)
 
 plt.title(
-    f"Landmark-based Distance Approximation Quality",
+    f"Landmark-based Distance Approximation Quality\n"
+    f"Dataset: {os.path.basename(os.path.abspath(FOLDER))}",
     fontsize=16,
     pad=20,
 )
-
 plt.grid(True, which="major", ls="-", alpha=0.7)
 plt.grid(True, which="minor", ls=":", alpha=0.4)
-
-# Force approx error axis from 0 to 1 by default
 plt.ylim(0, 1)
-
 plt.legend(fontsize=12, loc="upper right")
 plt.tight_layout()
 
