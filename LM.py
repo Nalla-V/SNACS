@@ -129,15 +129,22 @@ landmarks = []
 #  DEGREE STRATEGIES (UPDATED: STREAMING DEGREE COUNTER)
 # ============================================================
 def compute_degrees_streaming():
-    """Compute node degrees by streaming parquet batches."""
+    """Compute TRUE degrees (undirected graph)."""
     deg = [0] * n
     pf = pq.ParquetFile(EDGES_PARQUET)
+    seen_edges = set()  # avoid double-counting
     for batch in pf.iter_batches(batch_size=1_000_000, columns=["source", "target"]):
         d = batch.to_pydict()
-        srcs = d["source"]; tgts = d["target"]
-        for u in srcs: deg[int(u)] += 1
-        for v in tgts: deg[int(v)] += 1
+        srcs, tgts = d["source"], d["target"]
+        for u, v in zip(srcs, tgts):
+            u, v = int(u), int(v)
+            edge = tuple(sorted([u, v]))  
+            if edge not in seen_edges:
+                seen_edges.add(edge)
+                deg[u] += 1
+                deg[v] += 1
     return deg
+
 
 if LM_SEL == "random":
     print("Selecting Random Landmarks ")
