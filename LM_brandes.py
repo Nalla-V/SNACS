@@ -47,10 +47,6 @@ TIMING_JSON = os.path.join(OUTPUT_DIR, f"{LM}_timing_{LM_SEL}.json")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-print("\n# landmark_strategy_brandes.py (streaming) starting")
-print(f"K={K}, h_min={H_MIN}")
-print(f"Output → {OUTPUT_DIR}\n")
-
 # --------------------------
 # Load node map (dense ids)
 # --------------------------
@@ -81,7 +77,7 @@ for batch in pf.iter_batches(batch_size=1_000_000, columns=["source", "target"])
         rows_seen += 1
 
 t_build_end = time.time()
-print(f"Adjacency built: {n} nodes from {rows_seen} edge-rows (batches={batch_no}) in {t_build_end - t_build_start:.2f}s\n")
+print(f"Adjacency built: {n} nodes from {rows_seen} edges\n")
 
 # --------------------------
 # Basic helpers (BFS + Brandes accumulation)
@@ -196,7 +192,7 @@ def write_distances_batch(nodes, lm_id, dists):
 # --------------------------
 # Main algorithm: select landmarks iteratively using participation
 # --------------------------
-print("Starting new landmark selection + BFS precompute\n")
+print("Select landmark iteratively and precompute distance\n")
 
 T_LM = 0.0
 T_PRE = 0.0
@@ -211,7 +207,6 @@ L1 = max(range(n), key=lambda x: deg[x])
 landmarks.append(int(L1))
 t1 = time.time()
 T_LM += (t1 - t0)
-print(f"Selected L1 = {L1} (degree={deg[L1]})")
 
 # Helper to run BFS+accumulate for a landmark and write distances
 def run_from_landmark(lm):
@@ -252,11 +247,9 @@ for i in range(n):
     participation[i] += delta[i]
 T_PRE += elapsed
 bfs_times.append({"landmark": int(L1), "time": elapsed, "reachable": int(reachable)})
-print(f"  Done L1 BFS+accum (reachable={reachable}) in {elapsed:.3f}s")
 
 # Iteratively pick remaining K-1 landmarks
 for idx in range(2, K + 1):
-    print(f"\nSelecting landmark {idx}/{K} ...")
     t0 = time.time()
 
     # Build forbidden set: nodes within H_MIN hops of any chosen landmark
@@ -295,7 +288,6 @@ for idx in range(2, K + 1):
     landmarks.append(int(best_node))
     t1 = time.time()
     T_LM += (t1 - t0)
-    print(f"  Selected L{idx} = {best_node} (score={best_score:.3f}, deg={deg[best_node]})")
 
     # run BFS+accum for the new landmark
     delta, reachable, elapsed = run_from_landmark(best_node)
@@ -305,7 +297,6 @@ for idx in range(2, K + 1):
         participation[i] += delta[i]
     T_PRE += elapsed
     bfs_times.append({"landmark": int(best_node), "time": elapsed, "reachable": int(reachable)})
-    print(f"  Completed BFS+accum from L{idx} in {elapsed:.3f}s (reachable={reachable})")
 
 # Close parquet writer if created
 if 'parquet_writer' in globals() and parquet_writer is not None:

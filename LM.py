@@ -228,8 +228,7 @@ else:
 
 t_lm_end = time.time()
 T_LM = t_lm_end - t_lm_start
-
-print(f"\nSelected landmarks: {landmarks}")
+    
 print(f"T_LM = {T_LM:.3f}s\n")
 
 # Save LM

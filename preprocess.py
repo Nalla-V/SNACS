@@ -195,12 +195,4 @@ with open(TMP_EDGES, "r", encoding="utf-8") as f:
 writer.close()
 os.remove(TMP_EDGES)  # clean up
 
-print(f"  Saved edges parquet → {EDGES_PARQUET} (rows written: {edges_written:,})")
-
-# ---------- Summary ----------
-print("\nSummary:")
-print(f"  header_detected  = {skipped_header}")
-print(f"  edges_processed  = {edges_processed:,}")
-print(f"  edges_written    = {edges_written:,}")
-print(f"  nodes_mapped     = {len(id_to_node):,}")
-print("\nPreprocessing finished successfully!\n")
+print(f"  Saved edges parquet → {EDGES_PARQUET}")
