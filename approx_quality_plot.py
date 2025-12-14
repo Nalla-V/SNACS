@@ -34,9 +34,8 @@ STRATEGY_INFO = {
 
 print(f"\nScanning: {os.path.abspath(FOLDER)}\n")
 
-# --------------------------
 # Find and parse result files
-# --------------------------
+
 pattern = os.path.join(FOLDER, "*_approx_quality_*.json")
 files = sorted(glob.glob(pattern))
 
@@ -78,9 +77,9 @@ for filepath in files:
     data[strategy][K] = avg
     print(f"{STRATEGY_INFO[strategy]['name']:<15} K={K:4d} → {avg:.4f}")
 
-# --------------------------
+
 # Save Plot
-# --------------------------
+
 plt.figure(figsize=(11, 7))
 plt.rcParams.update({"font.size": 13})
 
