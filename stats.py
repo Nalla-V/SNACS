@@ -19,9 +19,9 @@ import numpy as np
 import pandas as pd
 from itertools import combinations
 
-# -------------------------------
+
 # Configuration 
-# -------------------------------
+
 with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
@@ -31,26 +31,26 @@ NODE_MAP_JSON = os.path.join(OUTPUT_DIR, "node_map.json")
 
 random.seed(42)
 
-# -------------------------------
+
 # Load node map
-# -------------------------------
+
 with open(NODE_MAP_JSON) as f:
     id_to_node = json.load(f)
 
 num_nodes = len(id_to_node)
 
-# -------------------------------
+
 # Load edges
-# -------------------------------
+
 df = pd.read_parquet(EDGES_PARQUET)
 src = df["source"].astype(int).to_numpy()
 tgt = df["target"].astype(int).to_numpy()
 
 num_edges = len(df) 
 
-# -------------------------------
+
 # Compute Average degree (exact)
-# -------------------------------
+
 avg_degree = 2.0 * num_edges / num_nodes
 
 print("BASIC STATS")
@@ -58,17 +58,17 @@ print(f"  |V| (nodes)  : {num_nodes}")
 print(f"  |E| (edges)  : {num_edges}")
 print(f"  <k> (avg deg): {avg_degree:.4f}")
 
-# --------------------------------------
+
 # Build adjacency (needed for clustering)
-# --------------------------------------
+
 adj = [set() for _ in range(num_nodes)]
 for u, v in zip(src, tgt):
     adj[u].add(v)
     adj[v].add(u)
 
-# -------------------------------
+
 # Local clustering coefficient
-# -------------------------------
+
 def local_clustering(node_id: int) -> float:
     """
     Local clustering coefficient for one node:
@@ -106,9 +106,9 @@ def local_clustering(node_id: int) -> float:
 
     return triangles / possible if possible > 0 else 0.0
 
-# ------------------------------------------
+
 # Compute Average Clustering (approximate)
-# ------------------------------------------
+
 CLUSTERING_SAMPLES = 1000
 sample_size = min(CLUSTERING_SAMPLES, num_nodes)
 sample_nodes = random.sample(range(num_nodes), sample_size)
