@@ -79,9 +79,9 @@ for filepath in files:
     data[strategy][K] = t_total
     print(f"{STRATEGY_INFO[strategy]['name']:<15} K={K:4d} → T_total={t_total:.6f} s")
 
-# --------------------------
+
 # Plotting
-# --------------------------
+
 plt.figure(figsize=(11, 7))
 plt.rcParams.update({"font.size": 13})
 
