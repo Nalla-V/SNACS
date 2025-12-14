@@ -58,9 +58,8 @@ with open(NODE_MAP_JSON, "r") as f:
 n = len(id_to_label)
 print(f"Loaded node_map.json: {n} nodes (0..{n-1})")
 
-# --------------------------
+
 # Build adjacency list 
-# --------------------------
 t0 = time.time()
 pf = pq.ParquetFile(EDGES_PARQUET)
 
@@ -76,9 +75,8 @@ for batch in pf.iter_batches(batch_size=1_000_000, columns=["source", "target"])
 
 t1 = time.time()
 
-# --------------------------
+
 # BFS helpers
-# --------------------------
 def bfs_full(source):
     """Standard BFS returning distances from `source` to all nodes (-1 if unreachable)."""
 
@@ -121,15 +119,13 @@ def sample_pivots(sample_size):
     sample_size = min(sample_size, n)
     return random.sample(range(n), sample_size)
 
-# --------------------------
 # Landmark selection timing starts here
-# --------------------------
+
 t_lm_start = time.time()
 landmarks = []
 
-# --------------------------
 # Degree strategies
-# --------------------------
+
 def compute_degrees_streaming():
     deg = [0] * n
     pf = pq.ParquetFile(EDGES_PARQUET)
@@ -179,9 +175,9 @@ elif LM_SEL == "degree_h":
 
     landmarks = selected
 
-# --------------------------
+
 # Sampled Closeness strategy
-# --------------------------
+
 elif LM_SEL == "closeness":
     print("Computing closeness on Sample size ")
     S = CLOSENESS_SAMPLES
@@ -251,9 +247,9 @@ print(f"T_LM = {T_LM:.3f}s\n")
 with open(LANDMARKS_JSON, "w") as f:
     json.dump(landmarks, f, indent=2)
 
-# --------------------------
+
 # Precompute BFS from landmarks
-# --------------------------
+
 print("Precomputing distance using BFS from selected landmarks to all other nodes")
 records_node = []
 records_lm = []
