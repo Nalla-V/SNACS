@@ -24,9 +24,8 @@ import pyarrow.parquet as pq
 import pyarrow as pa
 import pandas as pd
 
-# --------------------------
+
 # Configuration 
-# --------------------------
 with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
@@ -50,9 +49,9 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 print(f"\n# Landmark selection (sampled) starting — method={LM_SEL}, K={K}, h_min={H_MIN}")
 print(f"Output → {OUTPUT_DIR}")
 
-# --------------------------
+
 # Load node map
-# --------------------------
+
 with open(NODE_MAP_JSON, "r") as f:
     id_to_label = json.load(f)
 n = len(id_to_label)
@@ -110,9 +109,9 @@ def nodes_within_hops(start, h):
                 q.append(v)
     return res
 
-# --------------------------
+
 # Random sampling for Closeness
-# --------------------------
+
 random.seed(RANDOM_SEED)
 
 def sample_pivots(sample_size):
