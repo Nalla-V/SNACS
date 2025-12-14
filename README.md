@@ -8,7 +8,7 @@ The pipeline is designed to be run per dataset, producing:
 - query sets + exact distances for evaluation
 - plots and tables used in the report
 
-## Project layout
+## File layout
 
 Main scripts:
 
