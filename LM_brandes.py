@@ -21,9 +21,9 @@ from collections import deque
 import pyarrow.parquet as pq
 import pyarrow as pa
 
-# --------------------------
+
 # Configuration 
-# --------------------------
+
 with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
@@ -44,17 +44,17 @@ TIMING_JSON = os.path.join(OUTPUT_DIR, f"{LM}_timing_{LM_SEL}.json")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# --------------------------
+
 # Load node map (dense ids)
-# --------------------------
+
 with open(NODE_MAP_JSON, "r") as f:
     id_to_node = json.load(f)  
 n = len(id_to_node)
 print(f"Loaded node_map.json → {n} nodes")
 
-# --------------------------
+
 # Build adjacency list by streaming Parquet
-# --------------------------
+
 t_build_start = time.time()
 
 pf = pq.ParquetFile(EDGES_PARQUET)
@@ -76,9 +76,9 @@ for batch in pf.iter_batches(batch_size=1_000_000, columns=["source", "target"])
 t_build_end = time.time()
 print(f"Adjacency built: {n} nodes from {rows_seen} edges\n")
 
-# --------------------------
+
 # Basic helpers (BFS + Brandes accumulation)
-# --------------------------
+
 def bfs_brandes(source):
     """
     BFS from `source` and collect the structures needed for Brandes-style accumulation.
@@ -152,14 +152,14 @@ def nodes_within_hops(start, h):
                 q.append(v)
     return out
 
-# --------------------------
+
 # Degree heuristic (used for initial seed and tie-breaking)
-# --------------------------
+
 deg = [len(adj[i]) for i in range(n)]
 
-# --------------------------
+
 # Prepare Parquet writer for distances (incremental)
-# --------------------------
+
 schema = pa.schema([
     pa.field("node", pa.int32()),
     pa.field("landmark", pa.int32()),
@@ -190,9 +190,9 @@ def write_distances_batch(nodes, lm_id, dists):
         parquet_writer = pq.ParquetWriter(DISTANCES_PQ, schema)
     parquet_writer.write_table(tbl)
 
-# --------------------------
+
 # Main algorithm: iterative landmark selection + index construction
-# --------------------------
+
 print("Select landmark iteratively and precompute distance\n")
 
 T_LM = 0.0
@@ -302,9 +302,9 @@ for idx in range(2, K + 1):
 if 'parquet_writer' in globals() and parquet_writer is not None:
     parquet_writer.close()
 
-# --------------------------
+
 # Save outputs
-# --------------------------
+
 with open(LANDMARKS_JSON, "w") as f:
     json.dump(landmarks, f, indent=2)
 
