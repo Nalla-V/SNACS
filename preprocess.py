@@ -18,9 +18,9 @@ import yaml
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-# --------------------------
+
 # Configuration 
-# --------------------------
+
 with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
@@ -34,9 +34,9 @@ TMP_EDGES = os.path.join(OUTPUT_DIR, "_edges.tmp")  # temporary numeric edge lis
 
 print("\n# 1_preprocess: streaming edge list → parquet + node mapping")
 
-# --------------------------
+
 # Header detection
-# --------------------------
+
 def looks_like_header(tokens):
     """Heuristic: return True if the first two fields look like a header row."""
     if len(tokens) < 2:
@@ -63,9 +63,9 @@ def looks_like_header(tokens):
     return False
 
 
-# --------------------------
+
 # Pass 1: Stream input, build node mapping, write numeric edges
-# --------------------------
+
 node_to_id = {}
 id_to_node = []
 next_id = 0
@@ -141,17 +141,17 @@ with open(INPUT_FILE, "r", encoding="utf-8", errors="replace") as fin, \
 
 print(f"  Pass 1 complete: {edges_processed:,} edges processed, {next_id:,} unique nodes found (header skipped={skipped_header})")
 
-# --------------------------
+
 # Saving node mapping
-# --------------------------
+
 node_map = {str(i): node for i, node in enumerate(id_to_node)}
 with open(NODE_MAP_JSON, "w", encoding="utf-8") as f:
     json.dump(node_map, f, indent=2, ensure_ascii=False)
 print(f"  Saved node map → {NODE_MAP_JSON}")
 
-# --------------------------
+
 # Pass 2: write edges.parquet in batches
-# --------------------------
+
 schema = pa.schema([
     pa.field("source", pa.int32()),
     pa.field("target", pa.int32())
