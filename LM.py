@@ -1,20 +1,19 @@
-#!/usr/bin/env python3
 """
-landmark_select_sampled.py
+Selects landmarks using simple baseline strategies (random/degree/sampled closeness) and builds
+a landmark distance index. It selects K landmarks, runs BFS from each landmark to all nodes,
+and writes the landmark-to-node distances to a Parquet file.
 
-Supported strategies:
- - random
- - degree
- - degree_h
- - closeness
- - closeness_h
+Reads (from output_dir in config.yaml)
+  - config.yaml
+  - edges.parquet
+  - node_map.json
 
-closeness_sample uses sampling (default sample_size=200).
-Outputs:
- - landmarks.json
- - distances.parquet
- - timing_{method}.json
+Writes (to output_dir)
+  - landmarks.json
+  - distances.parquet
+  - <k>_timing_<lm_sel>.json
 """
+
 import os
 import time
 import json
@@ -26,14 +25,14 @@ import pyarrow as pa
 import pandas as pd
 
 # --------------------------
-# Config
+# Configuration 
 # --------------------------
 with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
 OUTPUT_DIR = config["output_dir"]
 K = int(config["k"])
-H_MIN = int(config.get("h_min", 2))
+H_MIN = int(config.get("h_min", 0))
 LM_SEL = config.get("lm_sel", "degree").lower()
 LM = config.get("k", 4)
 CLOSENESS_SAMPLES = int(config.get("closeness_samples", 200))
@@ -44,7 +43,6 @@ NODE_MAP_JSON = os.path.join(OUTPUT_DIR, "node_map.json")
 LANDMARKS_JSON = os.path.join(OUTPUT_DIR, "landmarks.json")
 DISTANCES_PARQUET = os.path.join(OUTPUT_DIR, "distances.parquet")
 
-# dynamic timing file
 TIMING_JSON = os.path.join(OUTPUT_DIR, f"{LM}_timing_{LM_SEL}.json")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -61,7 +59,7 @@ n = len(id_to_label)
 print(f"Loaded node_map.json: {n} nodes (0..{n-1})")
 
 # --------------------------
-# Build adjacency list (streaming parquet)
+# Build adjacency list 
 # --------------------------
 t0 = time.time()
 pf = pq.ParquetFile(EDGES_PARQUET)
@@ -82,6 +80,8 @@ t1 = time.time()
 # BFS helpers
 # --------------------------
 def bfs_full(source):
+    """Standard BFS returning distances from `source` to all nodes (-1 if unreachable)."""
+
     dist = [-1] * n
     q = deque([source])
     dist[source] = 0
@@ -94,6 +94,8 @@ def bfs_full(source):
     return dist
 
 def nodes_within_hops(start, h):
+    """Return set of nodes within <= h hops from `start` (including `start`)."""
+
     if h <= 0:
         return {start}
     dist = [-1] * n
@@ -111,7 +113,7 @@ def nodes_within_hops(start, h):
     return res
 
 # --------------------------
-# Sampling pivots
+# Random sampling for Closeness
 # --------------------------
 random.seed(RANDOM_SEED)
 
@@ -120,19 +122,18 @@ def sample_pivots(sample_size):
     return random.sample(range(n), sample_size)
 
 # --------------------------
-# TIMING starts for selection
+# Landmark selection timing starts here
 # --------------------------
 t_lm_start = time.time()
 landmarks = []
 
-# ============================================================
-#  DEGREE STRATEGIES (UPDATED: STREAMING DEGREE COUNTER)
-# ============================================================
+# --------------------------
+# Degree strategies
+# --------------------------
 def compute_degrees_streaming():
-    """Compute TRUE degrees (undirected graph)."""
     deg = [0] * n
     pf = pq.ParquetFile(EDGES_PARQUET)
-    seen_edges = set()  # avoid double-counting
+    seen_edges = set()  
     for batch in pf.iter_batches(batch_size=1_000_000, columns=["source", "target"]):
         d = batch.to_pydict()
         srcs, tgts = d["source"], d["target"]
@@ -147,15 +148,21 @@ def compute_degrees_streaming():
 
 
 if LM_SEL == "random":
+    # Uniform random landmarks
+
     print("Selecting Random Landmarks ")
     landmarks = random.sample(range(n), K)
 
 elif LM_SEL == "degree":
+    # Top-K nodes by degree
+
     print("Computing degree ")
     deg = compute_degrees_streaming()
     landmarks = sorted(range(n), key=lambda x: deg[x], reverse=True)[:K]
 
 elif LM_SEL == "degree_h":
+    # Degree ranking with hop-exclusion
+
     print("Computing degree for degree_h")
     deg = compute_degrees_streaming()
 
@@ -172,9 +179,9 @@ elif LM_SEL == "degree_h":
 
     landmarks = selected
 
-# ============================================================
-#  CLOSENESS (SAMPLED)
-# ============================================================
+# --------------------------
+# Sampled Closeness strategy
+# --------------------------
 elif LM_SEL == "closeness":
     print("Computing closeness on Sample size ")
     S = CLOSENESS_SAMPLES
@@ -198,6 +205,8 @@ elif LM_SEL == "closeness":
     landmarks = sorted(range(n), key=lambda x: avg_farness[x])[:K]
 
 elif LM_SEL == "closeness_h":
+    # Sampled closeness with hop-exclusion
+
     print("Computing closeness on Sample size ")
     S = CLOSENESS_SAMPLES
     pivots = sample_pivots(S)
@@ -238,12 +247,12 @@ T_LM = t_lm_end - t_lm_start
     
 print(f"T_LM = {T_LM:.3f}s\n")
 
-# Save LM
+# Save selected Landmarks
 with open(LANDMARKS_JSON, "w") as f:
     json.dump(landmarks, f, indent=2)
 
 # --------------------------
-# Precompute BFS from LMs
+# Precompute BFS from landmarks
 # --------------------------
 print("Precomputing distance using BFS from selected landmarks to all other nodes")
 records_node = []
@@ -252,6 +261,7 @@ records_dist = []
 T_pre = 0.0
 bfs_times = []
 
+# For each landmark, store (node, landmark, distance) for all reachable nodes
 for lm in landmarks:
     t0 = time.time()
     dist = bfs_full(lm)
@@ -266,7 +276,7 @@ for lm in landmarks:
             records_lm.append(lm)
             records_dist.append(d)
 
-print("\nWriting distances in distaances.parquet file")
+print("\nWriting distances in distances.parquet file")
 df_out = pd.DataFrame({
     "node": records_node,
     "landmark": records_lm,

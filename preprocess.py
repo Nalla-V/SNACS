@@ -1,15 +1,15 @@
-#!/usr/bin/env python3
 """
-Streaming preprocess: TSV/CSV edge list → edges.parquet + node_map.json
+Converts an edge-list file (CSV/TSV/whitespace) into a compact internal representation.
+It streams the input, maps node labels to contiguous integer IDs, removes self-loops,
+and writes the resulting edges to `edges.parquet` plus a `node_map.json`.
 
-Fixes:
-- No more double file opening → eliminates +1 edge / +2 nodes bug
-- Single pass over input file
-- Robust header detection
-- Handles comma-separated or whitespace-separated files
-- Skips comments (#) and empty lines
-- Ignores self-loops
-- Memory efficient (batched Parquet writing)
+Reads
+  - config.yaml (input_tsv, output_dir)
+  - input_tsv (edge list)
+
+Writes (to output_dir)
+  - edges.parquet
+  - node_map.json
 """
 
 import os
@@ -18,7 +18,9 @@ import yaml
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-# ---------- config ----------
+# --------------------------
+# Configuration 
+# --------------------------
 with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
@@ -32,9 +34,11 @@ TMP_EDGES = os.path.join(OUTPUT_DIR, "_edges.tmp")  # temporary numeric edge lis
 
 print("\n# 1_preprocess: streaming edge list → parquet + node mapping")
 
-# ---------- Robust header detection ----------
+# --------------------------
+# Header detection
+# --------------------------
 def looks_like_header(tokens):
-    """Return True if the token pair looks like a header row."""
+    """Heuristic: return True if the first two fields look like a header row."""
     if len(tokens) < 2:
         return False
 
@@ -43,11 +47,9 @@ def looks_like_header(tokens):
         "from", "to", "src", "dst", "id1", "id2", "head", "tail"
     }
 
-    # If either token is a known header keyword → definitely header
     if any(t.lower() in common_headers for t in tokens):
         return True
 
-    # If both tokens are purely numeric (or negative integers) → data, not header
     both_numeric = all(
         t.strip().replace("-", "").isdigit() and t.strip() != ""
         for t in tokens
@@ -55,14 +57,15 @@ def looks_like_header(tokens):
     if both_numeric:
         return False
 
-    # If any token contains letters → likely header (node IDs are usually numeric or UUIDs)
     if any(any(c.isalpha() for c in t) for t in tokens):
         return True
 
     return False
 
 
-# ---------- Single streaming pass ----------
+# --------------------------
+# Pass 1: Stream input, build node mapping, write numeric edges
+# --------------------------
 node_to_id = {}
 id_to_node = []
 next_id = 0
@@ -83,7 +86,7 @@ with open(INPUT_FILE, "r", encoding="utf-8", errors="replace") as fin, \
         if not stripped or stripped.startswith("#"):
             continue
 
-        # Split: prefer comma, fallback to whitespace
+        # Split: prefer comma-separated; otherwise fall back to whitespace
         if "," in line:
             parts = [p.strip() for p in stripped.split(",") if p.strip()]
         else:
@@ -94,18 +97,15 @@ with open(INPUT_FILE, "r", encoding="utf-8", errors="replace") as fin, \
 
         tokens = parts[:2]
 
-        # Header detection on first valid line
         if not skipped_header and looks_like_header(tokens):
             skipped_header = True
-            # Header consumed → continue to next line
             continue
         else:
-            # Not a header → if we hadn't decided yet, rewind this line
             if not skipped_header:
                 fin.seek(pos)
-            break  # exit header detection loop
+            break  
 
-    # Now process all remaining lines (header already skipped if present)
+    # Process all remaining lines as edges
     for line in fin:
         stripped = line.strip()
         if not stripped or stripped.startswith("#"):
@@ -121,16 +121,11 @@ with open(INPUT_FILE, "r", encoding="utf-8", errors="replace") as fin, \
 
         u_raw, v_raw = parts[0], parts[1]
 
-        # Extra safety: skip any line if it looks exactly like a header (very rare)
-        if u_raw.lower() in {"source", "target", "u", "v", "from", "to"} and \
-           v_raw.lower() in {"source", "target", "u", "v", "from", "to"}:
-            continue
-
         # Skip self-loops
         if u_raw == v_raw:
             continue
 
-        # Assign incremental IDs
+        # Map raw node labels to contiguous internal IDs
         for node in (u_raw, v_raw):
             if node not in node_to_id:
                 node_to_id[node] = next_id
@@ -146,13 +141,17 @@ with open(INPUT_FILE, "r", encoding="utf-8", errors="replace") as fin, \
 
 print(f"  Pass 1 complete: {edges_processed:,} edges processed, {next_id:,} unique nodes found (header skipped={skipped_header})")
 
-# ---------- Save node mapping ----------
+# --------------------------
+# Saving node mapping
+# --------------------------
 node_map = {str(i): node for i, node in enumerate(id_to_node)}
 with open(NODE_MAP_JSON, "w", encoding="utf-8") as f:
     json.dump(node_map, f, indent=2, ensure_ascii=False)
 print(f"  Saved node map → {NODE_MAP_JSON}")
 
-# ---------- Pass 2: Write Parquet in batches ----------
+# --------------------------
+# Pass 2: write edges.parquet in batches
+# --------------------------
 schema = pa.schema([
     pa.field("source", pa.int32()),
     pa.field("target", pa.int32())
@@ -193,6 +192,6 @@ with open(TMP_EDGES, "r", encoding="utf-8") as f:
         edges_written += len(src_batch)
 
 writer.close()
-os.remove(TMP_EDGES)  # clean up
+os.remove(TMP_EDGES)  # Remove temporary files
 
 print(f"  Saved edges parquet → {EDGES_PARQUET}")
