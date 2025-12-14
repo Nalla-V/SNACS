@@ -19,9 +19,9 @@ import pandas as pd
 import pyarrow.parquet as pq
 import json
 
-# -----------------------------
+
 # Configuration 
-# -----------------------------
+
 with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
@@ -48,9 +48,9 @@ with open(TRUE_DIST_JSON) as f:
 
 true_map = {tuple(d["query_labels"]): d["true"] for d in true_dist_data}
 
-# -----------------------------
+
 # Load node ID mapping
-# -----------------------------
+
 with open(NODE_MAP_JSON, "r") as f:
     internal_to_orig_str = json.load(f)
 
