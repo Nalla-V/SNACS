@@ -18,14 +18,14 @@ import matplotlib.pyplot as plt
 from collections import deque, Counter
 import matplotlib.ticker as mtick
 
-# -------------------------------
+
 # Plot title
-# -------------------------------
+
 TITLE = "Twitch Gamers Dataset"
 
-# -------------------------------
+
 # Configuration 
-# -------------------------------
+
 with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
@@ -33,24 +33,24 @@ OUTPUT_DIR = config["output_dir"]
 EDGES_PARQUET = os.path.join(OUTPUT_DIR, "edges.parquet")
 NODE_MAP_JSON = os.path.join(OUTPUT_DIR, "node_map.json")
 
-# -------------------------------
+
 # Load node map
-# -------------------------------
+
 with open(NODE_MAP_JSON) as f:
     id_to_node = json.load(f)
 
 num_nodes = len(id_to_node)
 
-# -------------------------------
+
 # Load edges
-# -------------------------------
+
 df = pd.read_parquet(EDGES_PARQUET)
 src = df["source"].astype(int).to_numpy()
 tgt = df["target"].astype(int).to_numpy()
 
-# -------------------------------
+
 # Build adjacency
-# -------------------------------
+
 adj = [[] for _ in range(num_nodes)]
 for u, v in zip(src, tgt):
     adj[u].append(v)
@@ -58,9 +58,9 @@ for u, v in zip(src, tgt):
 
 adj = [np.array(nei, dtype=np.int32) for nei in adj]
 
-# -------------------------------
+
 # BFS helper
-# -------------------------------
+
 def bfs(src):
     dist = [-1] * num_nodes
     q = deque([src])
@@ -74,9 +74,9 @@ def bfs(src):
                 q.append(v)
     return dist
 
-# -------------------------------
+
 # Sampling: run BFS from a small set of nodes
-# -------------------------------
+
 SAMPLES = 50
 sample_nodes = random.sample(range(num_nodes), min(SAMPLES, num_nodes))
 
@@ -92,9 +92,9 @@ for s in sample_nodes:
 distances = sorted(distance_counter.keys())
 frequencies = [distance_counter[d] for d in distances]
 
-# -------------------------------
+
 # Plot
-# -------------------------------
+
 plt.figure(figsize=(4, 3))
 plt.bar(distances, frequencies)
 
