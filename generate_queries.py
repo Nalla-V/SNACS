@@ -20,9 +20,9 @@ import numpy as np
 import pandas as pd
 from collections import deque
 
-# -----------------------------
+
 # Configuration 
-# -----------------------------
+
 with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
@@ -32,9 +32,9 @@ NODE_MAP_JSON = os.path.join(OUTPUT_DIR, "node_map.json")
 
 print("\n# generate_queries.py: Generating 500 diverse queries (FAST + CORRECT)")
 
-# -----------------------------
+
 # Load node map
-# -----------------------------
+
 with open(NODE_MAP_JSON) as f:
     internal_to_orig_str = json.load(f)  
 
@@ -47,18 +47,17 @@ label_arr = [dense_to_orig[i] for i in range(num_nodes)]
 
 print(f"   Loaded {num_nodes:,} nodes → dense internal IDs 0..{num_nodes-1}")
 
-# -----------------------------
 # Load node edges
-# -----------------------------
+
 df = pd.read_parquet(EDGES_PARQUET)
 sources = df["source"].astype(np.int32).to_numpy()
 targets = df["target"].astype(np.int32).to_numpy()
 
 print(f"   Loaded {len(sources):,} edges (dense internal format)")
 
-# -----------------------------
+
 # Build adjacency list
-# -----------------------------
+
 adj = [[] for _ in range(num_nodes)]
 for u, v in zip(sources, targets):
     adj[u].append(v)
@@ -67,9 +66,9 @@ for u, v in zip(sources, targets):
 adj = [np.array(nei, dtype=np.int32) for nei in adj]
 print("   Adjacency list built")
 
-# -----------------------------
+
 # Compute BFS
-# -----------------------------
+
 def bfs_np(src: int) -> np.ndarray:
     """BFS from `src` over the dense-id graph; returns dist array (-1 = unreachable)."""
 
@@ -89,9 +88,9 @@ def bfs_np(src: int) -> np.ndarray:
             q.extend(candidates)
     return dist
 
-# -------------------------------------------------
+
 # Collect candiate pairs by hop-distance bucket
-# ----------------------------------------------------
+
 short, medium, long = set(), set(), set()
 TARGET_S = 100
 TARGET_M = 200
@@ -127,9 +126,9 @@ for i, s in enumerate(seeds):
 
 print(f"\n   Collection complete: Short={len(short)}, Medium={len(medium)}, Long={len(long)}")
 
-# -------------------------------------------------
+
 # Build final set of exactly 500 unique queries
-# -------------------------------------------------
+
 final_pairs = set()
 
 final_pairs.update(random.sample(list(short), min(TARGET_S, len(short))))
@@ -148,9 +147,9 @@ queries = queries[:500]
 
 print(f"   Final: {len(queries)} diverse queries (real original node IDs)")
 
-# -------------------------------------------------
+
 # Save YAML as a simple list
-# -------------------------------------------------
+
 class FlowPair(list):
     pass
 
