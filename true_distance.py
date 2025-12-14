@@ -19,9 +19,9 @@ import yaml
 from collections import deque, defaultdict
 import pyarrow.parquet as pq
 
-# --------------------------
+
 # Configurations
-# --------------------------
+
 with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
@@ -36,9 +36,9 @@ if not QUERIES_RAW:
 
 print(f"\n# precompute_true_distances.py: Computing exact distances for {len(QUERIES_RAW)} queries")
 
-# --------------------------
+
 # Load node map 
-# --------------------------
+
 with open(NODE_MAP_JSON, "r") as f:
     internal_to_orig_str = json.load(f)
 
@@ -48,9 +48,9 @@ orig_to_internal = {orig: internal for internal, orig in internal_to_orig.items(
 n_nodes = len(internal_to_orig)
 print(f"   Loaded {n_nodes:,} nodes")
 
-# --------------------------
+
 # Convert queries to internal IDs
-# --------------------------
+
 queries = []
 for idx, (s_label, t_label) in enumerate(QUERIES_RAW, start=1):
     s_int = orig_to_internal.get(s_label)
@@ -70,9 +70,9 @@ for serial, s_int, t_int, s_lab, t_lab in queries:
 unique_sources = sorted(queries_by_source.keys())
 print(f"   Valid queries: {len(queries)}, unique sources: {len(unique_sources)}")
 
-# --------------------------
+
 # Build adjacency list
-# --------------------------
+
 print("   Building adjacency list")
 t0 = time.perf_counter()
 
@@ -88,9 +88,9 @@ for batch in pf.iter_batches(batch_size=1_000_000, columns=["source", "target"])
 
 print(f"   Adjacency built in {time.perf_counter() - t0:.2f}s")
 
-# --------------------------
+
 # BFS with early stopping
-# --------------------------
+
 def bfs_early_stop(source: int, targets: set):
     """
     BFS from `source` but stop once all nodes in `targets` have been reached.
@@ -121,9 +121,9 @@ def bfs_early_stop(source: int, targets: set):
                 q.append(v)
     return found
 
-# -----------------------------------------------------
+
 # Run BFS for each unique source and collect results
-# -----------------------------------------------------
+
 results = []
 t_start = time.perf_counter()
 
@@ -153,9 +153,9 @@ for i, src in enumerate(unique_sources, 1):
 total_time = time.perf_counter() - t_start
 print(f"   All done in {total_time:.1f}s")
 
-# --------------------------
+
 # Save results
-# --------------------------
+
 results_sorted = sorted(results, key=lambda x: x["query_serial_no"])
 with open(TRUE_DIST_JSON, "w") as f:
     json.dump(results_sorted, f, indent=2)
